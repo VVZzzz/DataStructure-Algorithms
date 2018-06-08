@@ -9,7 +9,8 @@ public:
     ~BinarySeachTree();
 
     bool contains(const Comparable &x) const ;
-
+    const Comparable & findMin() const ;
+    const Comparable & findMax() const ;
 private:
     struct BinaryNode{
         Comparable element;
@@ -23,6 +24,8 @@ private:
     BinaryNode *root;
 
     bool contains(const Comparable &x,BinaryNode *t) const ;
+    BinaryNode *findMin(BinaryNode *t) const ;
+    BinaryNode *findMax(BinaryNode *t) const ;
 
 };
 
