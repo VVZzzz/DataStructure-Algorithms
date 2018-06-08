@@ -1,0 +1,2 @@
+/usr/bin/ar qc libDataStructure_Algorithm.a  CMakeFiles/DataStructure_Algorithm.dir/binsearchtree.cpp.o
+/usr/bin/ranlib libDataStructure_Algorithm.a
