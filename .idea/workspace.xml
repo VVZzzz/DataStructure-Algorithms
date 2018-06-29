@@ -11,7 +11,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="990fde19-2573-408a-8f31-4808b7a978fc" name="Default" comment="" />
+    <list default="true" id="990fde19-2573-408a-8f31-4808b7a978fc" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/binsearchtree.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/binsearchtree.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/binsearchtree.h" beforeDir="false" afterPath="$PROJECT_DIR$/binsearchtree.h" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,11 +39,8 @@
       <file leaf-file-name="binsearchtree.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/binsearchtree.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="28" column="6" lean-forward="true" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
-              <folding>
-                <element signature="e#94#115#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="943">
+              <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -48,11 +49,19 @@
         <entry file="file://$PROJECT_DIR$/binsearchtree.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="437">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+              <caret line="79" column="40" selection-start-line="79" selection-start-column="40" selection-end-line="79" selection-end-column="40" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#57#78#0" expanded="true" />
-                <element signature="e#382#403#0" expanded="true" />
+                <element signature="e#94#117#0" expanded="true" />
+                <element signature="e#390#413#0" expanded="true" />
+                <element signature="e#530#553#0" expanded="true" />
+                <element signature="e#1174#1197#0" expanded="true" />
+                <element signature="e#1174#1197#0" expanded="true" />
+                <element signature="e#1513#1534#0" expanded="true" />
+                <element signature="e#1496#1519#0" expanded="true" />
+                <element signature="e#1927#1950#0" expanded="true" />
+                <element signature="e#1805#1828#0" expanded="true" />
+                <element signature="e#2613#2634#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,6 +89,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="346" />
     <option name="y" value="192" />
@@ -100,7 +110,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -133,27 +143,38 @@
       <option name="presentableId" value="Default" />
       <updated>1528444731646</updated>
       <workItem from="1528444733333" duration="1247000" />
-      <workItem from="1528446975407" duration="2589000" />
+      <workItem from="1528446975407" duration="5334000" />
+      <workItem from="1528706183324" duration="25000" />
+      <workItem from="1530176523486" duration="2043000" />
+      <workItem from="1530178578632" duration="11412000" />
     </task>
+    <task id="LOCAL-00001" summary=".">
+      <created>1528452287281</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1528452287281</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3836000" />
+    <option name="totallyTimeSpent" value="20061000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24959569" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24959569" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="CMake" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.3299285" />
       <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -169,7 +190,113 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binsearchtree.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#94#117#0" expanded="true" />
+            <element signature="e#390#413#0" expanded="true" />
+            <element signature="e#530#553#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1513#1534#0" expanded="true" />
+            <element signature="e#1496#1519#0" expanded="true" />
+            <element signature="e#1927#1950#0" expanded="true" />
+            <element signature="e#1805#1828#0" expanded="true" />
+            <element signature="e#2613#2634#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binsearchtree.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binsearchtree.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binsearchtree.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="37" lean-forward="true" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#94#117#0" expanded="true" />
+            <element signature="e#390#413#0" expanded="true" />
+            <element signature="e#530#553#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1513#1534#0" expanded="true" />
+            <element signature="e#1496#1519#0" expanded="true" />
+            <element signature="e#1927#1950#0" expanded="true" />
+            <element signature="e#1805#1828#0" expanded="true" />
+            <element signature="e#2613#2634#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binsearchtree.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binsearchtree.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1426">
+          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#94#117#0" expanded="true" />
+            <element signature="e#390#413#0" expanded="true" />
+            <element signature="e#530#553#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1513#1534#0" expanded="true" />
+            <element signature="e#1496#1519#0" expanded="true" />
+            <element signature="e#1927#1950#0" expanded="true" />
+            <element signature="e#1805#1828#0" expanded="true" />
+            <element signature="e#2613#2634#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -183,8 +310,16 @@
           <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#57#78#0" expanded="true" />
-            <element signature="e#382#403#0" expanded="true" />
+            <element signature="e#94#117#0" expanded="true" />
+            <element signature="e#390#413#0" expanded="true" />
+            <element signature="e#530#553#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1513#1534#0" expanded="true" />
+            <element signature="e#1496#1519#0" expanded="true" />
+            <element signature="e#1927#1950#0" expanded="true" />
+            <element signature="e#1805#1828#0" expanded="true" />
+            <element signature="e#2613#2634#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -193,9 +328,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
           <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#94#115#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -208,22 +340,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/binsearchtree.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="28" column="6" lean-forward="true" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
-          <folding>
-            <element signature="e#94#115#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="943">
+          <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/binsearchtree.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <caret line="79" column="40" selection-start-line="79" selection-start-column="40" selection-end-line="79" selection-end-column="40" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#57#78#0" expanded="true" />
-            <element signature="e#382#403#0" expanded="true" />
+            <element signature="e#94#117#0" expanded="true" />
+            <element signature="e#390#413#0" expanded="true" />
+            <element signature="e#530#553#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1174#1197#0" expanded="true" />
+            <element signature="e#1513#1534#0" expanded="true" />
+            <element signature="e#1496#1519#0" expanded="true" />
+            <element signature="e#1927#1950#0" expanded="true" />
+            <element signature="e#1805#1828#0" expanded="true" />
+            <element signature="e#2613#2634#0" expanded="true" />
           </folding>
         </state>
       </provider>
