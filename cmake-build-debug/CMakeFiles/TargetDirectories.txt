@@ -1,3 +1,0 @@
-/home/ehigh/DataStructure-Algorithm/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/ehigh/DataStructure-Algorithm/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/ehigh/DataStructure-Algorithm/cmake-build-debug/CMakeFiles/DataStructure_Algorithm.dir
