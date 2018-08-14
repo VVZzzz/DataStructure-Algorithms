@@ -1,12 +1,17 @@
 #include <iostream>
 #include <list>
 #include <vector>
-using namespace std;
+#include "MyList.h"
 int main()
 {
-	int a[5] = { 1,2,3,4,5 };
-	int * p = &a[2];
-	cout << *p << endl;
+	MyList<int> mylist;
+	for (int  i = 0; i < 5; i++) {
+		mylist.push_back(i);
+	}
+	auto itr = mylist.rbegin();
+	while (itr!=mylist.rend()) {
+		std::cout << *itr++ << std::endl;
+	}
 	system("pause");
 	return 0;
 }

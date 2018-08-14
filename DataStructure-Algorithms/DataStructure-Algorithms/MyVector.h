@@ -18,6 +18,14 @@ public:
 		++(*this);
 		return old;
 	}
+	const_iterator & operator+ (int k) {
+			const_iterator advanced = *this;
+			for (size_t i = 0; i < k; i++) {
+				++advanced;
+			}
+			return advanced;
+		}
+
 	bool operator==(const const_iterator & rhs) const {
 		return current == rhs.current;
 	}
