@@ -2,16 +2,11 @@
 #include <list>
 #include <vector>
 #include "MyList.h"
+#include "ch3practice.hpp"
 int main()
 {
-	MyList<int> mylist;
-	for (int  i = 0; i < 5; i++) {
-		mylist.push_back(i);
-	}
-	auto itr = mylist.rbegin();
-	while (itr!=mylist.rend()) {
-		std::cout << *itr++ << std::endl;
-	}
+	std::string res = postToinFix();
+	std::cout << res << std::endl;
 	system("pause");
 	return 0;
 }
