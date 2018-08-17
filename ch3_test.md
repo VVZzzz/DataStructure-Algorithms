@@ -99,4 +99,4 @@ b.第七章定理,排序操作时间代价总会为Ω(NlogN).
 但这样带来的问题是操作不均匀了。    
 详见[StackOverflow同样问题的讨论](https://stackoverflow.com/questions/4770627/how-to-implement-3-stacks-with-one-array)。   
 
-### 3.27
+### 3.27  
