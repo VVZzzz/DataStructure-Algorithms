@@ -332,3 +332,56 @@ std::string postToinFix() {
 }
 
 //3.24
+//参见文档
+
+//3.25
+/*
+a.参见文档
+b.参见文档
+*/
+
+//3.27 TODO
+//3.28 参见MyDeque.h
+
+//3.29
+//节点使用SLNode,无头尾结点
+//方法1.翻转链表 非递归 时间O(n)
+template<typename T>
+SLNode<T> *reverseSL1(SLNode<T> *first) {
+	SLNode *prev = nullptr, *curr = first, *nextp; = curr->next;
+	while (curr!=nullptr) {
+          curr->next = prev;
+          prev = curr;
+          curr = nextp;
+          nextp = nextp->next;
+    }
+        return prev;
+}
+
+//方法2.只输出不翻转链表 递归空间为O(n)
+template<typename T>
+void reverseprintSL2(SLNode<T> *first) {
+  if (first == nullptr) return;
+  reverseprintSL2(first->next);
+  std::cout << first->val << std::endl;
+}
+
+//方法3. 非递归借用栈空间为O(n)
+template<typename T>
+void reverseprintSL3(SLNode<T> *first) {
+  stack<T> s;
+  while (first!=nullptr) {
+    s.push(first->val);
+  }
+  while (!s.empty()) {
+    std::cout << s.top() << std::endl;
+    s.pop();
+  }
+}
+
+//方法4.递归翻转链表
+template<typename T>
+SLNode<T> *reverseSL4(SLNode<T> *first) {
+		
+}
+	
