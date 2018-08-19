@@ -107,4 +107,6 @@ b.第七章定理,排序操作时间代价总会为Ω(NlogN).
 
 详见[StackOverflow同样问题的讨论](https://stackoverflow.com/questions/4770627/how-to-implement-3-stacks-with-one-array)。   
 
-### 3.27  
+### 3.30
+a.b.参见ch3.hpp   
+c.这遵循众所周知的统计定理。 有关参考资料，请参阅第11章中的Sleator和Tarjan的论文。

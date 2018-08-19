@@ -382,6 +382,117 @@ void reverseprintSL3(SLNode<T> *first) {
 //方法4.递归翻转链表
 template<typename T>
 SLNode<T> *reverseSL4(SLNode<T> *first) {
-		
+	if (first==nullptr||first->next==nullptr)
+		return first;
+	else {
+		SLNode *newhead = reverseSL4(first->next);
+		first->next->next = first;
+		first->next = nullptr;
+		return newhead;
+	}
 }
 	
+//3.30 此题表述的find表述不清,此处写两种情况
+//a.数组实现
+template <typename T>
+class SAVector {
+public:
+	SAVector():m_vec(vector<T>()) { }
+	SAVector(vector<T> vec):m_vec(vec.begin(),vec.end()) { }
+	void push(const T &t) m_vec.insert(m_vec.begin(), t);
+	vector<T>::iterator find(const T &t) {
+		auto itr = std::find(m_vec.begin(), m_vec.end(), t);
+		m_vec.erase(itr);
+		push(t);
+		return m_vec.begin();
+	}
+	T &find(size_t i) {
+		auto temp = m_vec[i];
+		m_vec.erase(m_vec.begin() + i);
+		push(temp);
+		return m_vec[0];
+	}
+private:
+	std::vector<T> m_vec;
+};
+
+//b.链表list实现
+template <typename T>
+class SAList {
+public:
+	SAList():m_list(list<T>()) { }
+	SAList(list<T> l):m_list(l.begin(),l.end()) { }
+	void push(const T &t) m_list.push_front(t);
+	list<T>::iterator find(const T &t) {
+		m_list.erase(std::find(m_list.begin(), m_list.end(), t));
+		push(t);
+		return m_list.begin();
+	}
+	T &find(size_t i) {
+		T temp = *(m_list.begin() + i);
+		m_list.erase(m_list.begin() + i);
+		push(temp);
+		reurn *m_list.begin();
+	}
+	
+private:
+	list<T> m_list;
+};
+
+//3.31单链表实现栈.无表头表尾结点
+template <typename T>
+struct StackNode {
+	StackNode():next(nullptr) { }
+	StackNode(T &obj):data(obj) { }
+	StackNode(T &obj, StackNode *ptr):
+		data(obj),next(ptr) { }
+	T data;
+	StackNode *next;
+};
+
+template <typename T>
+class MyStack {
+public:
+	MyStack():head(nullptr) { }
+	~MyStack() { while (head) pop(); }
+	void push(T obj) head = new StackNode<T>(obj, head);
+	T top() return head->data;
+	void pop() {
+		auto temp = head->next;
+		delete head;
+		head = temp;
+	}
+private:
+	StackNode<T> *head;
+};
+
+//3.32单向链表实现队列,结点依旧用StackNode
+template <typename T>
+class MyQueue {
+public:
+	MyQueue():front(nullptr),rear(nullptr) { }
+	~MyQueue() { while (front) Deque(); }
+	//入队
+	void enqueue(T obj) {
+		auto ptr = new StackNode<T>(obj, nullptr);
+		if (rear) 
+			rear = rear->next = ptr;
+		else {
+			front = rear = ptr;
+		}
+	}
+	//出队
+	T Deque() {
+		T res = front->data;
+		auto temp = front;
+		if (front->next == nullptr)
+			front = rear = nullptr;
+		else 
+			front = front->next;
+		delete temp;
+		return res;
+	}
+private:
+	StackNode<T> *front;  //队列头
+	StackNode<T> *rear;   //队列尾
+};
