@@ -22,6 +22,7 @@
     <ClInclude Include="ch3practice.hpp" />
     <ClInclude Include="MyDeque.h" />
     <ClInclude Include="MyList.h" />
+    <ClInclude Include="MyTree.h" />
     <ClInclude Include="MyVector.h" />
   </ItemGroup>
   <ItemGroup>
