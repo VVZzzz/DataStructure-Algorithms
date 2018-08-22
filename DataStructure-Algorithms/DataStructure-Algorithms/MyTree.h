@@ -50,7 +50,11 @@ class BinarySearchTree{
     }
     return t->left;
   }
-  BinaryNode *findMax(BinaryNode *t) const;
+  BinaryNode *findMax(BinaryNode *t) const {
+    if (t!=nullptr) 
+      while (t->right != nullptr) t = t->right;
+    return t;
+  }
   bool contains(const T &x, BinaryNode *&t) const;
   void makeEmpty(BinaryNode *&t);
   void printTree(BinaryNode *t) const;
@@ -70,6 +74,18 @@ inline void BinarySearchTree<T>::insert(const T &x) {
 template <typename T>
 inline void BinarySearchTree<T>::remove(const T &x) {
   remove(x, root);
+}
+
+template <typename T>
+void BinarySearchTree<T>::insert(const T &x, BinaryNode *&t) const {
+  if (t == nullptr)
+    t = new BinaryNode(x, nullptr, nullptr);
+  else if (t->data < x)
+    insert(x, t->right);
+  else if (x < t->data)
+    insert(x, t->left);
+  else
+    //ÒÑ´æÔÚ£¬do nothing;
 }
 
 template <typename T>
