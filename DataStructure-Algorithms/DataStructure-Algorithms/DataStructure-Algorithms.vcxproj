@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ch3practice.hpp" />
+    <ClInclude Include="ch4practice.hpp" />
     <ClInclude Include="MyDeque.h" />
     <ClInclude Include="MyList.h" />
     <ClInclude Include="MyTree.h" />

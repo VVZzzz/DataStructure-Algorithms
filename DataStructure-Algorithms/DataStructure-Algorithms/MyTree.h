@@ -15,7 +15,7 @@ class BinarySearchTree{
  public:
   BinarySearchTree();
   BinarySearchTree( const BinarySearchTree &rhs ) const ;
-  ~BinarySearchTree();
+  ~BinarySearchTree() { makeEmpty(); }
 
   const T &findMin() const;
   const T &findMax() const;
@@ -40,7 +40,7 @@ class BinarySearchTree{
   BinaryNode *root;
 
   void insert(const T &x, BinaryNode *&t) const;
-  void remove(const T &x, BinaryNode *&t) const;
+  void remove(const T &x, BinaryNode *&t);
   BinaryNode *findMin(BinaryNode *t) const{
     if (t == nullptr) {
     return nullptr;
@@ -58,12 +58,22 @@ class BinarySearchTree{
   bool contains(const T &x, BinaryNode *&t) const;
   void makeEmpty(BinaryNode *&t);
   void printTree(BinaryNode *t) const;
-  BinaryNode *clone(BinaryNode *t) const;
+  BinaryNode *clone(BinaryNode *t) const {
+    if (t==nullptr) {
+      return nullptr;
+    }
+    return new BinaryNode(t->data, clone(t->left), clone(t->right));
+  }
 };
 
 template <typename T>
 inline bool BinarySearchTree<T>::contains(const T &x) const {
   return contains(x, root);
+}
+
+template <typename T>
+inline void BinarySearchTree<T>::makeEmpty() {
+  makeEmpty(root);
 }
 
 template <typename T>
@@ -77,6 +87,17 @@ inline void BinarySearchTree<T>::remove(const T &x) {
 }
 
 template <typename T>
+inline const BinarySearchTree<T> &BinarySearchTree<T>::operator=(
+    const BinarySearchTree &rhs) {
+  if (this!=rhs) {
+    makeEmpty();
+    root = clone(rhs.root);
+  }
+  return *this;
+}
+
+
+template <typename T>
 void BinarySearchTree<T>::insert(const T &x, BinaryNode *&t) const {
   if (t == nullptr)
     t = new BinaryNode(x, nullptr, nullptr);
@@ -86,6 +107,25 @@ void BinarySearchTree<T>::insert(const T &x, BinaryNode *&t) const {
     insert(x, t->left);
   else
     //已存在，do nothing;
+}
+
+//这个remove遍历了两次右子树，效率不高
+template <typename T>
+inline void BinarySearchTree<T>::remove(const T &x, BinaryNode *&t) {
+  if (t==nullptr) {
+    return;
+  } else if (x < t->data) {
+    remove(x, t->left);
+  } else if (x > t->data) {
+    remove(x, t->right);
+  } else if (t->left!=nullptr && t->right!=nullptr) {
+    t->data = findMin(t->right)->data;  //找到右子树的最左子节点
+    remove (t->data,t->right);  //接着递归删除这个右子树的最左子结点
+  } else {
+    BinaryNode *oldNode = t;
+    t = (t->left != nullptr) ? t->left : t->right;
+    delete oldNode;
+  }
 }
 
 template <typename T>
@@ -99,5 +139,15 @@ bool BinarySearchTree<T>::contains(const T &x, BinaryNode *&t) const {
   } else {
     return true;
   }
+}
+
+template <typename T>
+inline void BinarySearchTree<T>::makeEmpty(BinaryNode *&t) {
+  if (t!=nullptr) {
+    makeEmpty(t->left);
+    makeEmpty(t->right);
+    delete t;
+  }
+  t = nullptr;
 }
 
