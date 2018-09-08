@@ -1,6 +1,7 @@
 #pragma once
 // 4.11
 //此处Set类使用简单的二叉查找树实现
+//即Set即二叉查找树，更新了insert和添加了iterator和const_iterator
 template <typename T>
 class Set {
  public:
@@ -74,6 +75,15 @@ class Set {
    private:
     iterator(BinaryNode<T> * t) : const_iterator(t) {}
   };
+  Set() : root(nullptr), Size(0) {}
+  //拷贝构造函数
+  Set(const Set &rhs);
+  ~Set();
+  iterator insert(const T &x) { 
+    Size++;
+    return insert(x, root, root);
+  }
+  //剩下的接口函数即二叉查找树
  private:
   struct BinaryNode {
     T data;
@@ -87,4 +97,27 @@ class Set {
     BinaryNode(const T &element, BinaryNode *l, BinaryNode *r, BinaryNode *p)
         : data(element), left(l), right(s), parent(r) {}
   };
+  BinaryNode *root;
+  int Size;
+  iterator insert(const T &x, BinaryNode<T> *t, BinaryNode<T> *p) {
+    if (t==nullptr) {
+      t = new BinaryNode<T>(x, nullptr, nullptr, p);
+      return iterator(t);
+    } else if (x < t->data) {
+      insert(x, t->left, t);
+    } else if (x > t->data) {
+      insert(x, t->right, t);
+    } else {
+      return iterator(t);  //要插入的元素已经在set中了
+    }
+  }
 };
+
+//4.12 Map类底层存储为Set<pair<KeyType,ValueType>>,只用实现Map的一些常用接口即可。
+
+//4.13 略
+
+//4.14 不太明白
+
+//4.15
+//没有做实验。应该是随机选用

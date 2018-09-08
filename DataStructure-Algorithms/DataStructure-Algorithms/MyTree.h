@@ -67,8 +67,46 @@ class BinarySearchTree{
 };
 
 template <typename T>
+inline BinarySearchTree<T>::BinarySearchTree() : root(nullptr) {}
+
+template <typename T>
+inline BinarySearchTree<T>::BinarySearchTree(
+    const BinarySearchTree &rhs) const {
+  root = clone(rhs.root);
+}
+
+template <typename T>
+inline const T &BinarySearchTree<T>::findMin() const {
+  BinaryNode *t = findMin(root);
+  if (t!=nullptr) {
+    return t->data;
+  } else {
+    //没找到最小值
+    return T();
+  }
+}
+
+template <typename T>
+inline const T &BinarySearchTree<T>::findMax() const {
+  // TODO: 在此处插入 return 语句
+  BinaryNode *t = findMax(root);
+  if (t!=nullptr) {
+    return t->data;
+  } else {
+    //没找到最大值
+    return T();
+  }
+
+}
+
+template <typename T>
 inline bool BinarySearchTree<T>::contains(const T &x) const {
   return contains(x, root);
+}
+
+template <typename T>
+inline bool BinarySearchTree<T>::isEmpty() const {
+  return root==nullptr;
 }
 
 template <typename T>
