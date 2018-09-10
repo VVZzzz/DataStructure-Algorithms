@@ -3,6 +3,8 @@
 #include <vector>
 #include "MyList.h"
 #include "ch3practice.hpp"
+#include "ch4practice.hpp"
+#include "MyTree.h"
 int main()
 {
 	std::string res = postToinFix();

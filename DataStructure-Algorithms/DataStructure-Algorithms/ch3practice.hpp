@@ -413,11 +413,13 @@ class SAList {
   SAList() : m_list(list<T>()) {}
   SAList(std::list<T> l) : m_list(l.begin(), l.end()) {}
   void push(const T &t) { m_list.push_front(t); }
+	/*
   auto find(const T &t) {
     m_list.erase(std::find(m_list.begin(), m_list.end(), t));
     push(t);
     return m_list.begin();
   }
+	*/
   T &find(size_t i) {
     T temp = *(m_list.begin() + i);
     m_list.erase(m_list.begin() + i);

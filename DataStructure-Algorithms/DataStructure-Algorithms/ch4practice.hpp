@@ -5,9 +5,9 @@
 template <typename T>
 class Set {
  public:
+	struct BinaryNode;
   class const_iterator {
    friend class Set<T>;
-
    public: 
     const_iterator() : current(nullptr) {}
     const T & operator*() const { return retrive(); }
@@ -38,12 +38,12 @@ class Set {
     bool operator==(const const_iterator &rhs) const { return *this == rhs; }
     bool operator!=(const const_iterator &rhs) const { return !(*this == rhs); }
    protected:
-    BinaryNode<T> *current;
+    BinaryNode *current;
     T &retrive() const { return current->data; }
-    const_iterator(BinaryNode<T> *p) : current(p) {}
+    const_iterator(BinaryNode *p) : current(p) {}
   }; 
   class iterator:public const_iterator {
-   friend class BinaryNode<T>;
+   friend class Set;
    public:
     iterator() : const_iterator() {}
     T &operator*() const { return const_iterator::retrive(); }
@@ -73,7 +73,7 @@ class Set {
       return old;
     }
    private:
-    iterator(BinaryNode<T> * t) : const_iterator(t) {}
+    iterator(BinaryNode * t) : const_iterator(t) {}
   };
   Set() : root(nullptr), Size(0) {}
   //拷贝构造函数
@@ -84,7 +84,7 @@ class Set {
     return insert(x, root, root);
   }
   //剩下的接口函数即二叉查找树
- private:
+ protected:
   struct BinaryNode {
     T data;
     BinaryNode *left;
@@ -99,9 +99,9 @@ class Set {
   };
   BinaryNode *root;
   int Size;
-  iterator insert(const T &x, BinaryNode<T> *t, BinaryNode<T> *p) {
+  iterator insert(const T &x, BinaryNode *t, BinaryNode *p) {
     if (t==nullptr) {
-      t = new BinaryNode<T>(x, nullptr, nullptr, p);
+      t = new BinaryNode(x, nullptr, nullptr, p);
       return iterator(t);
     } else if (x < t->data) {
       insert(x, t->left, t);
@@ -121,3 +121,6 @@ class Set {
 
 //4.15
 //没有做实验。应该是随机选用
+
+//4.16
+//见MyTree.h,定义lazy版本的remove insert findMin findMax

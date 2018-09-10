@@ -1,0 +1,13 @@
+﻿生成启动时间为 2018/9/10 17:58:43。
+     1>项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>ClCompile:
+         J:\VS2013\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+       Link:
+         J:\VS2013\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.lib" /MACHINE:X64 x64\Debug\main.obj
+         DataStructure-Algorithms.vcxproj -> J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.exe
+     1>已完成生成项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”(Rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.64
