@@ -33,6 +33,9 @@
     <ClInclude Include="ch4practice.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MyAVL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
