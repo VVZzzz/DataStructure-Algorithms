@@ -10,6 +10,7 @@ class AVLTree {
 		 return t == nullptr ? -1 : t->height;
 	 }
 	 void insert(const T &x, AvlNode *t);
+	 void remove(const T &x, AvlNode)
 
 	 //非递归的insert,借助栈.原理相同
 	 void insert_iteration(const T &x, AvlNode *t);
