@@ -102,3 +102,12 @@ b.
 插入1,2,3...2^k - 1。则根结点为2^(k-1)，其左右子树个数相同。完全平衡。   
 采用数学归纳法可解,答案没看懂  
 
+### 4.21(重要)
+注意双旋转是两次单旋转得来。见```MyAVL.h```
+
+### 4.22(重要)
+实际上为[LeetCode110题](https://leetcode.com/problems/balanced-binary-tree/discuss/35691/The-bottom-up-O(N)-solution-would-be-better). 
+见```MyAVL.h```
+
+### 4.23(重要)
+AVL树的非递归插入,借助栈进行。
