@@ -10,7 +10,7 @@ class AVLTree {
 		 return t == nullptr ? -1 : t->height;
 	 }
 	 void insert(const T &x, AvlNode *t);
-	 void remove(const T &x, AvlNode)
+	 void remove(const T &x, AvlNode *t);
 
 	 //非递归的insert,借助栈.原理相同
 	 void insert_iteration(const T &x, AvlNode *t);
@@ -77,7 +77,7 @@ void AVLTree<T>::singleRotateWithLeft(AvlNode *&t) {
 
 template <typename T>
 void AVLTree<T>::doubleRotateWithLeft(AvlNode *&t) { 
-	/*直白思路*/
+	/*直白思路,效率超过两个单旋转*/
 //	AvlNode *l = t->left, *r = t->left->right;
 //	l->right = r->left;
 //	t->left = r->right;
@@ -167,4 +167,25 @@ void AVLTree<T>::insert_iteration(const T &x, AvlNode *t) {
 		nodeptr_stack.push(parent);
 		parent->height = max(getHeight(parent->left), getHeight(parent->right)) + 1;
 	}
+}
+
+template <typename T>
+void AVLTree<T>::remove(const T &x, AvlNode *t) { 
+	if (t == nullptr)
+		return;
+	else if (x < t->data) {
+		remove(t->left);
+		if (getHeight(t->right) - getHeight(t->left) == 2) {
+			
+		}
+	}
+	else if (x > t->data) { 
+		remove(t->right);
+	}
+	else {
+		if (t->left == nullptr&&t->right==nullptr) {
+			delete t;
+		}
+	}
+	t->height = max(getHeight(t->left), getHeight(t->right)) + 1;
 }

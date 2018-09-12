@@ -31,6 +31,13 @@ class BinarySearchTree{
   const BinarySearchTree &operator=(const BinarySearchTree &rhs);
 
 	BinaryNode *func1();
+	
+	//得到结点数
+	int countNodes(BinaryNode *t);
+	//得到树叶数
+	int countLeaves(BinaryNode *t);
+	//得到满结点数
+	int countFullNodes(BinaryNode *t);
  private:
   struct BinaryNode {
     T data;
@@ -316,7 +323,23 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t){
 	}
 }
 
-//template <typename T>
-//BinarySearchTree<T>::BinaryNode *BinarySearchTree<T>::func1(){
-//	return nullptr;
-//}
+template <typename T>
+int BinarySearchTree<T>::countNodes(BinaryNode *t) {
+	if (t == nullptr) return 0;
+	return 1 + countNodes(t->left) + countNodes(t->right);
+}
+
+template <typename T>
+int BinarySearchTree<T>::countLeaves(BinaryNode *t) {
+	if (t == nullptr) return 0;
+	else if (t->left == nullptr&&t->right == nullptr)
+		return 1;
+	return countLeaves(t->left) + countLeaves(t->right);
+}
+
+template <typename T>
+int BinarySearchTree<T>::countFullNodes(BinaryNode *t) {
+	if (t == nullptr) return 0;
+	return (t->left != nullptr&&t->right != nullptr) ? 1 : 0 
+		+ countFullNodes(t->left) + countFullNodes(t->right);
+}
