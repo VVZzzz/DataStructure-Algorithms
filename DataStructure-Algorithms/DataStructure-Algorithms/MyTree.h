@@ -30,14 +30,17 @@ class BinarySearchTree{
 
   const BinarySearchTree &operator=(const BinarySearchTree &rhs);
 
-	BinaryNode *func1();
 	
 	//得到结点数
-	int countNodes(BinaryNode *t);
+	int countNodes(BinaryNode *t) const;
 	//得到树叶数
-	int countLeaves(BinaryNode *t);
+	int countLeaves(BinaryNode *t) const;
 	//得到满结点数
-	int countFullNodes(BinaryNode *t);
+	int countFullNodes(BinaryNode *t) const;
+
+	bool isBST_1(BinaryNode *t) const;
+	bool isBST_2(BinaryNode *t) const;
+	bool isBST_3(BinaryNode *t) const;
  private:
   struct BinaryNode {
     T data;
@@ -104,6 +107,11 @@ class BinarySearchTree{
 		//没有找到
 		return nullptr;
 	}
+
+	//isBST版本1的工具函数
+	bool isBSTUtil_1(BinaryNode *t, long long int min, long long int max) const;
+	bool isBSTUtil_2(BinaryNode *t, BinaryNode *minNode, BinaryNode *maxNode) const;
+	bool isBSTUtil_3(BinaryNode *t, BinaryNode *&prev) const;
 };
 
 template <typename T>
@@ -323,14 +331,36 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t){
 	}
 }
 
+template<typename T>
+inline bool BinarySearchTree<T>::isBSTUtil_1(BinaryNode * t, 
+		long long int min, long long int max) const {
+	if (t == nullptr) return true;
+	if (t->data <= min || t->data >= max) return false;
+	return isBSTUtil_1(root->left, min, t->data) &&
+		isBSTUtil_1(root->right, t->data, max);
+}
+
+template<typename T>
+inline bool BinarySearchTree<T>::isBSTUtil_2(BinaryNode * t, BinaryNode * minNode, BinaryNode * maxNode) const {
+	if (t == nullptr) return true;
+	if (minNode != nullptr&&t->data <= minNode->data ||
+		maxNode != nullptr&&t->data >= maxNode->data) return false;
+	return isBSTUtil_2(t->left, minNode, t) && isBSTUtil_2(t->right, t, maxNode);
+}
+
+template<typename T>
+inline bool BinarySearchTree<T>::isBSTUtil_3(BinaryNode * t, BinaryNode *& prev) const {
+	if (t == nullptr) return true;
+}
+
 template <typename T>
-int BinarySearchTree<T>::countNodes(BinaryNode *t) {
+int BinarySearchTree<T>::countNodes(BinaryNode *t) const{
 	if (t == nullptr) return 0;
 	return 1 + countNodes(t->left) + countNodes(t->right);
 }
 
 template <typename T>
-int BinarySearchTree<T>::countLeaves(BinaryNode *t) {
+int BinarySearchTree<T>::countLeaves(BinaryNode *t) const{
 	if (t == nullptr) return 0;
 	else if (t->left == nullptr&&t->right == nullptr)
 		return 1;
@@ -338,8 +368,54 @@ int BinarySearchTree<T>::countLeaves(BinaryNode *t) {
 }
 
 template <typename T>
-int BinarySearchTree<T>::countFullNodes(BinaryNode *t) {
+int BinarySearchTree<T>::countFullNodes(BinaryNode *t) const{
 	if (t == nullptr) return 0;
 	return (t->left != nullptr&&t->right != nullptr) ? 1 : 0 
 		+ countFullNodes(t->left) + countFullNodes(t->right);
+}
+
+//isBST即为leetcode98.验证二叉搜索树
+//以下函数错误,没有考虑[10,5,15,null,null,6,20]
+/*
+template<typename T>
+inline bool BinarySearchTree<T>::isBST(BinaryNode * t) const {
+	if (t==nullptr||(t->left==nullptr&&t->right==nullptr)) {
+		return true;
+	}  
+	if (t->left!=nullptr&&t->right!=nullptr) {
+		if (t->left->data<t->data&&t->right->data>t->data) {
+			return isBST(t->left) && isBST(t->right);
+		}
+		else return false;
+	} else if (t->left==nullptr) {
+		if (t->right->data > t->data)
+			return isBST(t->right);
+		else
+			return false;
+	}	else {
+		if (t->left->data < t->data)
+			return isBST(t->left);
+		else
+			return false;
+	}
+}
+*/
+
+//默认模板为int类型,以下函数使用LONG_MAX LONG_MIN,考虑[INT_MIN]和[INT_MIN,INT_MIN]树
+//此方法由于使用特定类型的最小值和最大值,且有可能溢出,初始状态下要使用更高一级的类型。不具有广泛性
+template <typename T = int>
+bool BinarySearchTree<T>::isBST_1(BinaryNode *t) const {
+	return isBSTUtil_1(t, LONG_MIN, LONG_MAX);
+}
+
+//为解决上述问题使用这个函数,将LONG_MIN,LONG_MAX这些最小值最大值换成nullptr表示
+template<typename T>
+inline bool BinarySearchTree<T>::isBST_2(BinaryNode * t) const {
+	return isBSTUtil_2(t, nullptr, nullptr);
+}
+
+//递归中序遍历,需要一个pre前置指针
+template<typename T>
+inline bool BinarySearchTree<T>::isBST_3(BinaryNode * t) const {
+	BinaryNode *&pre = nullptr;
 }
