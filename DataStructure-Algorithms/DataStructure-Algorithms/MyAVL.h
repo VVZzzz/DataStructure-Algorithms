@@ -1,7 +1,7 @@
 #pragma once
 #include <stack>
 //AVL树,每个节点有height成员
-template <typename T>
+template <typename T = int>
 class AVLTree {
  struct AvlNode;
  public:
@@ -16,6 +16,9 @@ class AVLTree {
 	 void insert_iteration(const T &x, AvlNode *t);
 	 //判断是否满足平衡条件
 	 bool isBalanced();
+
+	 //4.35 生成最少结点的高度为h的AVL树,工具函数generate_min_H_utils()
+	 void generate_min_H(int h);
  private:
 	struct AvlNode {
 		T data;
@@ -38,6 +41,26 @@ class AVLTree {
 	void doubleRotateWithRight(AvlNode *&t);
 	//LeetCode110实现的得到高度工具函数(使用DFS),如果不满足平衡条件返回的是-1
 	int getWholeHeight(AvlNode *t);
+
+	AvlNode *generate_min_H_util(int h, T & lastVal) {
+		AvlNode *t = nullptr;
+		if (h>=0) {
+			t = new AvlNode();
+			t->left = generate_min_H_util(h - 1, lastVal);
+			t->data = ++lastVal;
+			t->right = generate_min_H_util(h - 2, lastVal);
+			//若不考虑保存结点的高度信息,此句可不要
+			t->height = max(getHeight(t->left), getHeight(t->right)) + 1;
+		}
+		return t;
+		if (h == 0) {
+			return new AvlNode(T(), nullptr, nullptr);
+		}
+		if (h == 1) {
+			return new AvlNode(T(), nullptr, generate_min_H_util(0));
+		}
+		return new AvlNode(T(), generate_min_H_util(h-1), generate_min_H_util(h-2));
+	}
 };
 
 //插入节点时,先插入再旋转调整
@@ -118,9 +141,19 @@ int AVLTree<T>::getWholeHeight(AvlNode *t) {
 	return max(leftheight, rightheight) + 1;
 }
 
+template<typename T>
+inline AvlNode * AVLTree<T>::generate_min_H_util(int h) {
+}
+
 template <typename T>
 bool AVLTree<T>::isBalanced() {
 	return getWholeHeight(root) != -1;
+}
+
+template<typename T>
+inline void AVLTree<T>::generate_min_H(int h) {
+	T lastVal();
+	return generate_min_H_util(h, lastVal);
 }
 
 template <typename T>

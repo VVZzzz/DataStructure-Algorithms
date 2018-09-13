@@ -38,9 +38,21 @@ class BinarySearchTree{
 	//得到满结点数
 	int countFullNodes(BinaryNode *t) const;
 
+	//检查是否为BST
 	bool isBST_1(BinaryNode *t) const;
 	bool isBST_2(BinaryNode *t) const;
 	bool isBST_3(BinaryNode *t) const;
+	bool isBST_4(BinaryNode *t) const;
+
+	//4.33 递归删除叶子结点
+	void remove_leaves(BinaryNode *&t) const;
+
+	//4.34 生成low~up的随机二叉搜索树,rndInt(low,up)生成low与up之间的随机数
+	int rndInt(int low, int up) { return (up + low) / 2; }
+	void makeRandomTree(int low,int up);
+
+	//4.37 打印[k1,k2]范围内的结点值
+	void printRange(const T &low, const T &up, BinaryNode *t) const;
  private:
   struct BinaryNode {
     T data;
@@ -112,6 +124,7 @@ class BinarySearchTree{
 	bool isBSTUtil_1(BinaryNode *t, long long int min, long long int max) const;
 	bool isBSTUtil_2(BinaryNode *t, BinaryNode *minNode, BinaryNode *maxNode) const;
 	bool isBSTUtil_3(BinaryNode *t, BinaryNode *&prev) const;
+
 };
 
 template <typename T>
@@ -351,6 +364,13 @@ inline bool BinarySearchTree<T>::isBSTUtil_2(BinaryNode * t, BinaryNode * minNod
 template<typename T>
 inline bool BinarySearchTree<T>::isBSTUtil_3(BinaryNode * t, BinaryNode *& prev) const {
 	if (t == nullptr) return true;
+	//检查左子树
+	if (!isBSTUtil_3(t->left, prev)) return false;
+	//检查当前
+	if (prev != nullptr&&prev->data >= t->data) return false;
+	prev = t;
+	//检查右子树
+	return isBSTUtil_3(t->right, prev);
 }
 
 template <typename T>
@@ -418,4 +438,61 @@ inline bool BinarySearchTree<T>::isBST_2(BinaryNode * t) const {
 template<typename T>
 inline bool BinarySearchTree<T>::isBST_3(BinaryNode * t) const {
 	BinaryNode *&pre = nullptr;
+}
+
+//非递归中序遍历,类似非递归删除.借用一个栈
+template<typename T>
+inline bool BinarySearchTree<T>::isBST_4(BinaryNode * t) const {
+	if (t == nullptr) return true;
+	std::stack<BinaryNode *> BSTNode_stack;
+	BinaryNode *prev = nullptr;
+	while (t!=nullptr||!BSTNode_stack.empty()) {
+		while (t!=nullptr) {
+			//左子树
+			BSTNode_stack.push(t);
+			t = t->left;
+		}
+		//判断当前结点
+		t = BSTNode_stack.pop();
+		if (prev != nullptr&&prev->data >= t->data) return false;
+		//右子树
+		prev = t;
+		t = t->right;
+	}
+}
+
+template<typename T>
+inline void BinarySearchTree<T>::remove_leaves(BinaryNode *& t) const {
+	if (t == nullptr) return;
+	if (t->left == nullptr&&t->right == nullptr) {
+		delete t;
+		t = nullptr;
+		return;
+	}
+	remove_leaves(t->left);
+	remove_leaves(t->right);
+}
+
+template<typename T>
+inline void BinarySearchTree<T>::makeRandomTree(int low, int up) {
+	int rndVal;
+	if (low <= up) {
+		root = new BinaryNode(rndVal = rndInt(low, up), 
+			makeRandomTree(low, rndVal - 1), makeRandomTree(rndVal + 1, up));
+	}
+	return root;
+}
+
+template<typename T>
+inline void BinarySearchTree<T>::printRange(const T & low, 
+	const T & up, BinaryNode * t) const {
+	if (t!=nullptr) {
+		//实际上还是递归中序遍历,先遍历左子树,再父节点,再右子树
+		if (t->data >= low)
+			printRange(low, up, t->left);
+		if (t->data >= low&&t->data <= up)
+			std::cout << t->data << std::endl;
+		if (t->data <= up)
+			printRange(low, up, t->right);
+	}
 }
