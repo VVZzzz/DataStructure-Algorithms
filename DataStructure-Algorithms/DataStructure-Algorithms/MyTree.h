@@ -1,5 +1,6 @@
 #pragma once
-
+#include <stack>
+#include <queue>
 //树节点的定义，存放左子结点和兄弟结点
 template <typename T>
 struct TreeNode {
@@ -53,6 +54,9 @@ class BinarySearchTree{
 
 	//4.37 打印[k1,k2]范围内的结点值
 	void printRange(const T &low, const T &up, BinaryNode *t) const;
+
+	//4.40 层序遍历二叉树
+	void levelOrder(BinaryNode *t) const;
  private:
   struct BinaryNode {
     T data;
@@ -495,4 +499,20 @@ inline void BinarySearchTree<T>::printRange(const T & low,
 		if (t->data <= up)
 			printRange(low, up, t->right);
 	}
+}
+
+template<typename T=int>
+inline void BinarySearchTree<T>::levelOrder(BinaryNode * t) const {
+	if (t == nullptr) return;
+	queue<BinaryNode *> node_queue;
+	BinaryNode *opnode;
+	node_queue.push(t);
+	while (!node_queue.empty()) {
+		opnode = node_queue.front();
+		//对opnode进行操作
+		node_queue.pop();
+		if (opnode->left != nullptr) node_queue.push(opnode->left);
+		if (opnode->right != nullptr) node_queue.push(opnode->right);
+	}
+	return;
 }

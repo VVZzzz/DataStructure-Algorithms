@@ -124,5 +124,36 @@ class Set {
 
 //4.16
 //见MyTree.h,定义lazy版本的remove insert findMin findMax
+template <typename T=int>
+struct BTNode {
+	T data;
+	BTNode *left;
+	BTNode *right;
+	BTNode(const T& t,BTNode *l,BTNode *r):
+		data(t), left(t), right(r) {}
+	BTNode():data(T()),left(nullptr),right(nullptr) {}
+};
+//4.45 判断两棵树是否相似
+template <typename T=int>
+bool isSimilar(BTNode<T> *t1, BTNode<T> *t2) {
+	if (t1 == nullptr || t2 == nullptr)
+		return t1 == nullptr&&t2 == nullptr;
+	return isSimilar(t1->left, t2->left) && isSimilar(t1->right, t2->right);
+}
 
-//4.34
+//4.46 判断两树是否同构
+template <typename T=int>
+bool isOmorphic(BTNode<T> *t1, BTNode<T> *t2) {
+	if (t1 == nullptr&&t2 == nullptr) return true;
+	if (t1 == nullptr&&t2 != nullptr || t2 == nullptr&&t1 != nullptr)
+		return false;
+	if (t1->data != t2->data) return false;
+	//同一侧的树都为空(即没有发生交换),则检查另一侧的
+	if (t1->left == nullptr&&t2->left == nullptr)return isOmorphic(t1->right, t2->right);
+
+	//没有发生交换
+	if ((t1->left != nullptr&&t2->left != nullptr) && (t1->left->data == t2->left->data))
+		return isOmorphic(t1->left, t1->left) && isOmorphic(t1->right, t2->right);
+	else //否则
+		return isOmorphic(t1->right, t1->left) && isOmorphic(t1->left, t2->right);
+}
