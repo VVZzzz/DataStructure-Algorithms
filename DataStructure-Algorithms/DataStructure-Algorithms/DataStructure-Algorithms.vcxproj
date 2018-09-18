@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClInclude Include="ch3practice.hpp" />
     <ClInclude Include="ch4practice.hpp" />
+    <ClInclude Include="HashFunc.h" />
     <ClInclude Include="MyAVL.h" />
     <ClInclude Include="MyDeque.h" />
+    <ClInclude Include="MyHashProbing.h" />
     <ClInclude Include="MyHashSeparateChain.h" />
     <ClInclude Include="MyList.h" />
     <ClInclude Include="MyTree.h" />

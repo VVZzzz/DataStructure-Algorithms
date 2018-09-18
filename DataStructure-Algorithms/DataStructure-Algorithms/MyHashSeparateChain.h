@@ -2,13 +2,15 @@
 #include <vector>
 #include <list>
 #include <string>
+#include "HashFunc.h"
 //哈希表(解决冲突为分离链接法)
 template <typename HashedObj>
 //此处哈希表要求HashedObj类型提供operator==或者operator!=操作
-class MyHashTable {
+class MyHashSeparate {
  public:
-	 explicit MyHashTable(int sz = 101): currentSize(0) {
+	 explicit MyHashSeparate(int sz = 101): currentSize(0) {
 		 theLists.reserve(sz);
+		 makeEmpty();
 	 }  //哈希表的大小最好是素数,利于分布均匀.
 	bool contains(const HashedObj &x) const;
 	void makeEmpty();
@@ -22,23 +24,15 @@ class MyHashTable {
 	int myhash(const HashedObj &t) const;  //哈希函数
 };
 
-//通用的两个哈希函数
-int hash(int key) {
-	return 0;
-}
-
-int hash(const std::string & str) {
-	return 0;
-}
 
 template<typename HashedObj>
-inline bool MyHashTable<HashedObj>::contains(const HashedObj & x) const {
+inline bool MyHashSeparate<HashedObj>::contains(const HashedObj & x) const {
 	int temp = myhash(x);
 	return std::find(theLists[temp].begin(), theLists[temp].end(),x);
 }
 
 template<typename HashedObj>
-inline void MyHashTable<HashedObj>::makeEmpty() {
+inline void MyHashSeparate<HashedObj>::makeEmpty() {
 	for (int i = 0; i < theLists.size();i++) {
 		theLists[i].clear();
 	}
@@ -46,7 +40,7 @@ inline void MyHashTable<HashedObj>::makeEmpty() {
 }
 
 template<typename HashedObj>
-inline void MyHashTable<HashedObj>::insert(const HashedObj & x) const {
+inline void MyHashSeparate<HashedObj>::insert(const HashedObj & x) const {
 	std::list<HashedObj> & whichlist = theLists[hash(x)];
 	if (std::find(whichlist.begin(), whichlist.end(), x) == whichlist.end())
 		return false;
@@ -58,7 +52,7 @@ inline void MyHashTable<HashedObj>::insert(const HashedObj & x) const {
 }
 
 template<typename HashedObj>
-inline void MyHashTable<HashedObj>::remove(const HashedObj & x) const {
+inline void MyHashSeparate<HashedObj>::remove(const HashedObj & x) const {
 	std::list<HashedObj> & whichlist = theLists[hash(x)];
 	std::list<HashedObj>::iterator itr = std::find(whichlist.begin(), whichlist.end(), x);
 	if (itr == whichlist.end()) return false;
@@ -68,8 +62,8 @@ inline void MyHashTable<HashedObj>::remove(const HashedObj & x) const {
 }
 
 template<typename HashedObj>
-inline int MyHashTable<HashedObj>::myhash(const HashedObj & t) const {
-	int hashVal = hash(x);
+inline int MyHashSeparate<HashedObj>::myhash(const HashedObj & t) const {
+	int hashVal = hash(t);
 	hashVal %= theLists.size();  //由于有的哈希函数得到的哈希值过大导致溢出,可能出现负值.
 	if (hashVal < 0) {
 		hashVal += theLists.size();

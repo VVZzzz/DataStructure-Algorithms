@@ -6,6 +6,7 @@
 #include "ch4practice.hpp"
 #include "MyTree.h"
 #include "MyHashSeparateChain.h"
+#include "MyHashProbing.h"
 int main()
 {
 	std::string res = postToinFix();

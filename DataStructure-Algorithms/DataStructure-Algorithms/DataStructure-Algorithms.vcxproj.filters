@@ -39,6 +39,12 @@
     <ClInclude Include="MyHashSeparateChain.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MyHashProbing.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HashFunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

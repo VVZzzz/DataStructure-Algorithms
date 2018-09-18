@@ -1,0 +1,88 @@
+#pragma once
+//解决冲突策略为探测散列的散列表
+//探测散列注意:1.散列表的大小必须为素数 2.探测散列的删除操作必须为懒惰删除,否则删除之后
+//的find操作会出错 3.已插入元素数必须≤散列表大小的一半,否则无法找到空位进行insert.
+
+//此文件使用"平方探测法"
+#include <string>
+#include <vector>
+#include "HashFunc.h"
+
+template <typename HashedObj>
+class MyProbingHash {
+ public:
+	explicit MyProbingHash(int sz = 101): currentSize(0) {
+		 theLists.reserve(sz);
+		 makeEmpty();
+	 }  //哈希表的大小最好是素数,利于分布均匀.
+	bool contains(const HashedObj &x) const;
+	void makeEmpty();
+	bool insert(const HashedObj &x) const;
+	void remove(const HashedObj &x) const;
+	enum EntryType {
+		ACTIVE,
+		EMPTY,
+		DELETED
+	};
+ private:
+  struct HashEntry {
+		HashedObj data;
+		EntryType info;															//表示该元素的状态,是否被删除
+		HashEntry(const HashedObj &t=HashedObj(),
+							EntryType i=EMPTY)
+			  : data(t),
+					info(i) { }
+  };
+	std::vector<HashEntry> theLists;						 //哈希表,其元素为HashEntry
+	int currentSize;
+	bool isActive(int currentPos) const;
+	int findPos(const HashedObj &x) const;			 //此函数解决冲突
+	void rehash();	//一般情况下,使元素的个数和哈希表的大小相等使得装填因子≈1,查找效率高.
+									//rehash()用来扩充哈希表大小
+	int myhash(const HashedObj &t) const;  //哈希函数
+};
+
+template<typename HashedObj>
+inline bool MyProbingHash<HashedObj>::contains(const HashedObj & x) const {
+	return isActive(findPos(x));
+}
+
+template<typename HashedObj>
+inline void MyProbingHash<HashedObj>::makeEmpty() {
+	for (int i = 0; i < theLists.size(); i++) {
+		theLists[i].info = EMPTY;
+	}
+}
+
+template<typename HashedObj>
+inline bool MyProbingHash<HashedObj>::insert(const HashedObj & x) const {
+	int currpos = findPos(x);
+	if (isActive(currpos)) return false;	//已经存在
+	theLists[currpos] = HashEntry(x, ACTIVE);
+	//如果大于一半的长度
+	if (++currentSize > theLists.size() / 2) rehash();
+	return true;
+}
+
+template<typename HashedObj>
+inline bool MyProbingHash<HashedObj>::isActive(int currentPos) const {
+	return theLists[currentPos].info == ACTIVE;
+}
+
+//此处的f(i)=i^2.hi(x)=(hash(x)+i^2)%TableSize
+//计算f(i)=f(i-1)+2i-1,可避免做乘法运算.即+1 +3 +5......
+//返回那些为EMPTY和data==x的结点
+template<typename HashedObj>
+inline int MyProbingHash<HashedObj>::findPos(const HashedObj & x) const {
+	int offset = 1;
+	int currpos = hash(x);
+	while (theLists[currpos].info!=EMPTY&&
+				 theLists[currpos].data!=x) {
+		currpos += offset;
+		offset += 2;
+		if (currpos>=theLists.size()) {
+			currpos -= theLists.size();
+		}
+	}
+	return currpos;
+}
