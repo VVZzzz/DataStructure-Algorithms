@@ -7,12 +7,13 @@
 #include <string>
 #include <vector>
 #include "HashFunc.h"
+#include "nextPrime.h"
 
 template <typename HashedObj>
 class MyProbingHash {
  public:
 	explicit MyProbingHash(int sz = 101): currentSize(0) {
-		 theLists.reserve(sz);
+		theLists.resize(nextPrime(sz));
 		 makeEmpty();
 	 }  //哈希表的大小最好是素数,利于分布均匀.
 	bool contains(const HashedObj &x) const;
@@ -65,6 +66,14 @@ inline bool MyProbingHash<HashedObj>::insert(const HashedObj & x) const {
 }
 
 template<typename HashedObj>
+inline void MyProbingHash<HashedObj>::remove(const HashedObj & x) const {
+	int currpos = findPos(x);
+	if (!isActive(currpos)) return false;
+	theLists[currpos].info = DELETED;
+	return true;
+}
+
+template<typename HashedObj>
 inline bool MyProbingHash<HashedObj>::isActive(int currentPos) const {
 	return theLists[currentPos].info == ACTIVE;
 }
@@ -85,4 +94,26 @@ inline int MyProbingHash<HashedObj>::findPos(const HashedObj & x) const {
 		}
 	}
 	return currpos;
+}
+
+template<typename HashedObj>
+inline void MyProbingHash<HashedObj>::rehash() {
+	std::vector<HashEntry> oldLists = theLists;
+	theLists.resize(nextPrime(oldLists.size()));
+	for (auto &c : theLists)
+		c.info = EMPTY;
+	currentSize = 0;	//将旧表的元素重新插入到新表中,故currentSize变为0
+	for (auto &c : oldLists)
+		if (c.info == ACTIVE)
+			insert(c.data);
+}
+
+template<typename HashedObj>
+inline int MyProbingHash<HashedObj>::myhash(const HashedObj & t) const {
+	int hashVal = hash(t);
+	hashVal %= theLists.size();  //由于有的哈希函数得到的哈希值过大导致溢出,可能出现负值.
+	if (hashVal < 0) {
+		hashVal += theLists.size();
+	}
+	return hashVal;
 }

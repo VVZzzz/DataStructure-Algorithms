@@ -1,3 +1,4 @@
 ﻿  main.cpp
+f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\nextprime.h(9): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
   DataStructure-Algorithms.vcxproj -> F:\Dream\DataStructure-Algorithms\DataStructure-Algorithms\Debug\DataStructure-Algorithms.exe
   DataStructure-Algorithms.vcxproj -> F:\Dream\DataStructure-Algorithms\DataStructure-Algorithms\Debug\DataStructure-Algorithms.pdb (Partial PDB)

@@ -3,19 +3,20 @@
 #include <list>
 #include <string>
 #include "HashFunc.h"
+#include "nextPrime.h"
 //哈希表(解决冲突为分离链接法)
 template <typename HashedObj>
 //此处哈希表要求HashedObj类型提供operator==或者operator!=操作
 class MyHashSeparate {
  public:
 	 explicit MyHashSeparate(int sz = 101): currentSize(0) {
-		 theLists.reserve(sz);
+		 theLists.resize(nextPrime(sz));
 		 makeEmpty();
 	 }  //哈希表的大小最好是素数,利于分布均匀.
 	bool contains(const HashedObj &x) const;
 	void makeEmpty();
-	void insert(const HashedObj &x) const;
-	void remove(const HashedObj &x) const;
+	bool insert(const HashedObj &x) const;
+	bool remove(const HashedObj &x) const;
  private:
 	std::vector<std::list<HashedObj> > theLists;  //哈希表,其元素为一个解决冲突的链表.
 	int currentSize;
@@ -40,7 +41,7 @@ inline void MyHashSeparate<HashedObj>::makeEmpty() {
 }
 
 template<typename HashedObj>
-inline void MyHashSeparate<HashedObj>::insert(const HashedObj & x) const {
+inline bool MyHashSeparate<HashedObj>::insert(const HashedObj & x) const {
 	std::list<HashedObj> & whichlist = theLists[hash(x)];
 	if (std::find(whichlist.begin(), whichlist.end(), x) == whichlist.end())
 		return false;
@@ -52,13 +53,25 @@ inline void MyHashSeparate<HashedObj>::insert(const HashedObj & x) const {
 }
 
 template<typename HashedObj>
-inline void MyHashSeparate<HashedObj>::remove(const HashedObj & x) const {
+inline bool MyHashSeparate<HashedObj>::remove(const HashedObj & x) const {
 	std::list<HashedObj> & whichlist = theLists[hash(x)];
 	std::list<HashedObj>::iterator itr = std::find(whichlist.begin(), whichlist.end(), x);
 	if (itr == whichlist.end()) return false;
 	whichlist.erase(itr);
 	--currentSize;
 	return true;
+}
+
+template<typename HashedObj>
+inline void MyHashSeparate<HashedObj>::rehash() {
+	std::vector<std::list<HashedObj> > oldList = theLists;
+	theLists.resize(oldList.size());
+	for (auto &c : theLists)
+		c.clear();
+	currentSize = 0;
+	for (auto &c : oldList)
+		for (auto &element : c)
+			insert(element);
 }
 
 template<typename HashedObj>

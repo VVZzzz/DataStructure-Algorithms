@@ -45,6 +45,9 @@
     <ClInclude Include="HashFunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="nextPrime.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

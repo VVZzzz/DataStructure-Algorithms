@@ -29,6 +29,7 @@
     <ClInclude Include="MyList.h" />
     <ClInclude Include="MyTree.h" />
     <ClInclude Include="MyVector.h" />
+    <ClInclude Include="nextPrime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
