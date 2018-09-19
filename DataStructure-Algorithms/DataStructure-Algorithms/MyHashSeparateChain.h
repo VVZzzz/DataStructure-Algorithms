@@ -19,9 +19,9 @@ class MyHashSeparate {
 	bool remove(const HashedObj &x) const;
  private:
 	std::vector<std::list<HashedObj> > theLists;  //哈希表,其元素为一个解决冲突的链表.
-	int currentSize;
-	void rehash();  //一般情况下,使元素的个数和哈希表的大小相等使得装填因子≈1,查找效率高.
-									//rehash()用来扩充哈希表大小
+	int currentSize;  
+	void rehash();    //一般情况下,使元素的个数和哈希表的大小相等使得装填因子≈1,查找效率高.
+									  //rehash()用来扩充哈希表大小
 	int myhash(const HashedObj &t) const;  //哈希函数
 };
 

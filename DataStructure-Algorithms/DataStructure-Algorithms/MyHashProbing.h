@@ -19,7 +19,8 @@ class MyProbingHash {
 	bool contains(const HashedObj &x) const;
 	void makeEmpty();
 	bool insert(const HashedObj &x) const;
-	void remove(const HashedObj &x) const;
+	bool remove(const HashedObj &x) const;
+	bool isEmpty() const;
 	enum EntryType {
 		ACTIVE,
 		EMPTY,
@@ -35,11 +36,15 @@ class MyProbingHash {
 					info(i) { }
   };
 	std::vector<HashEntry> theLists;						 //哈希表,其元素为HashEntry
-	int currentSize;
+	int currentSize;	//注意这里和SeparateChain不一样，当一个元素设置为DELETED时，currentsize不减1.
+										//这是因为探测散列必须执行懒惰删除，而只有当rehash的时候，这些deleted的元素才会真正
+										//的删除。currentsize表示的是已经在散列表中占据位置的元素个数。
+										//同样，考察这个表是否为空isEmpty。也只能查看theLists中元素状态是否全部为false才可以。
+										//见isEmpty();
 	bool isActive(int currentPos) const;
 	int findPos(const HashedObj &x) const;			 //此函数解决冲突
-	void rehash();	//一般情况下,使元素的个数和哈希表的大小相等使得装填因子≈1,查找效率高.
-									//rehash()用来扩充哈希表大小
+	void rehash();	 //一般情况下,使元素的个数和哈希表的大小相等使得装填因子≈1,查找效率高.
+									 //rehash()用来扩充哈希表大小
 	int myhash(const HashedObj &t) const;  //哈希函数
 };
 
@@ -66,10 +71,18 @@ inline bool MyProbingHash<HashedObj>::insert(const HashedObj & x) const {
 }
 
 template<typename HashedObj>
-inline void MyProbingHash<HashedObj>::remove(const HashedObj & x) const {
+inline bool MyProbingHash<HashedObj>::remove(const HashedObj & x) const {
 	int currpos = findPos(x);
 	if (!isActive(currpos)) return false;
 	theLists[currpos].info = DELETED;
+	return true;
+}
+
+template<typename HashedObj>
+inline bool MyProbingHash<HashedObj>::isEmpty() const {
+	for (auto &c : theLists)
+		if (c.info == ACTIVE)
+			return false;
 	return true;
 }
 
