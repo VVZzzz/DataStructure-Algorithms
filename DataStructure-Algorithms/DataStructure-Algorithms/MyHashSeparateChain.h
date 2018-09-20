@@ -7,6 +7,8 @@
 //哈希表(解决冲突为分离链接法)
 template <typename HashedObj>
 //此处哈希表要求HashedObj类型提供operator==或者operator!=操作
+//更为广泛的使用为在构造散列表时，提供一个函数指针用来提供自己的哈希函数或者解决冲突函数。
+//或者就固定使用hash(int);hash(const string &);在对应特定的类型时，hash(const T&);调用hash(T.getNameString());
 class MyHashSeparate {
  public:
 	 explicit MyHashSeparate(int sz = 101): currentSize(0) {
