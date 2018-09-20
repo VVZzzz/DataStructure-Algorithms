@@ -1,13 +1,40 @@
-﻿生成启动时间为 2018/9/10 17:58:43。
-     1>项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”在节点 2 上(Rebuild 个目标)。
+﻿生成启动时间为 2018/9/20 17:26:20。
+     1>项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          J:\VS2013\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt main.cpp
          main.cpp
+     1>j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\nextPrime.h(9): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+     1>j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\MyHashProbing.h(119): warning C4267: “-=”: 从“size_t”转换到“int”，可能丢失数据
+                 j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\MyHashProbing.h(111): 编译类 模板 成员函数“int MyProbingHash<std::string>::findPos(const HashedObj &) const”时
+                 with
+                 [
+                     HashedObj=std::string
+                 ]
+                 j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\MyHashProbing.h(66): 参见对正在编译的函数 模板 实例化“int MyProbingHash<std::string>::findPos(const HashedObj &) const”的引用
+                 with
+                 [
+                     HashedObj=std::string
+                 ]
+                 j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\MyHashProbing.h(65): 编译类 模板 成员函数“bool MyProbingHash<std::string>::contains(const HashedObj &) const”时
+                 with
+                 [
+                     HashedObj=std::string
+                 ]
+                 main.cpp(19): 参见对正在编译的函数 模板 实例化“bool MyProbingHash<std::string>::contains(const HashedObj &) const”的引用
+                 with
+                 [
+                     HashedObj=std::string
+                 ]
+                 main.cpp(14): 参见对正在编译的类 模板 实例化“MyProbingHash<std::string>”的引用
+     1>j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\MyHashProbing.h(128): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+                 j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\MyHashProbing.h(126): 编译类 模板 成员函数“void MyProbingHash<std::string>::rehash(void)”时
+                 j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\MyHashProbing.h(82): 参见对正在编译的函数 模板 实例化“void MyProbingHash<std::string>::rehash(void)”的引用
+     1>j:\王润涵\practice_project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(49): warning C4715: “MyProbingHash<std::basic_string<char,std::char_traits<char>,std::allocator<char> > >::HashEntry::operator=”: 不是所有的控件路径都返回值
        Link:
          J:\VS2013\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.lib" /MACHINE:X64 x64\Debug\main.obj
          DataStructure-Algorithms.vcxproj -> J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\x64\Debug\DataStructure-Algorithms.exe
-     1>已完成生成项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”(Rebuild 个目标)的操作。
+     1>已完成生成项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.64
+已用时间 00:00:00.86

@@ -48,6 +48,12 @@
     <ClInclude Include="nextPrime.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MyPair.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Dictionary.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

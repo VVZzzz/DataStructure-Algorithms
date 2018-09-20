@@ -20,14 +20,20 @@ class MyProbingHash {
 	 }  //哈希表的大小最好是素数,利于分布均匀.
 	bool contains(const HashedObj &x) const;
 	void makeEmpty();
-	bool insert(const HashedObj &x) const;
-	bool remove(const HashedObj &x) const;
+	bool insert(const HashedObj &x);
+	bool remove(const HashedObj &x);
 	bool isEmpty() const;
 	enum EntryType {
 		ACTIVE,
 		EMPTY,
 		DELETED
 	};
+
+	//下面这个函数有问题，即我传入KeyType类型的参数，应该调用同样类型为KeyType的findPos，该怎样做?
+	template<typename KeyType>
+	const HashedObj &retrive(const KeyType &key) const{
+		return theLists[findPos(key)];
+	}
  private:
   struct HashEntry {
 		HashedObj data;
@@ -36,6 +42,11 @@ class MyProbingHash {
 							EntryType i=EMPTY)
 			  : data(t),
 					info(i) { }
+		const HashEntry &operator=(const HashEntry &rhs){
+			if (this == &rhs) return *this;
+			data = rhs.data;
+			info = rhs.info;
+		}
   };
 	std::vector<HashEntry> theLists;						 //哈希表,其元素为HashEntry
 	int currentSize;	//注意这里和SeparateChain不一样，当一个元素设置为DELETED时，currentsize不减1.
@@ -63,7 +74,7 @@ inline void MyProbingHash<HashedObj>::makeEmpty() {
 }
 
 template<typename HashedObj>
-inline bool MyProbingHash<HashedObj>::insert(const HashedObj & x) const {
+inline bool MyProbingHash<HashedObj>::insert(const HashedObj & x) {
 	int currpos = findPos(x);
 	if (isActive(currpos)) return false;	//已经存在
 	theLists[currpos] = HashEntry(x, ACTIVE);
@@ -73,7 +84,7 @@ inline bool MyProbingHash<HashedObj>::insert(const HashedObj & x) const {
 }
 
 template<typename HashedObj>
-inline bool MyProbingHash<HashedObj>::remove(const HashedObj & x) const {
+inline bool MyProbingHash<HashedObj>::remove(const HashedObj & x) {
 	int currpos = findPos(x);
 	if (!isActive(currpos)) return false;
 	theLists[currpos].info = DELETED;
@@ -118,9 +129,9 @@ inline void MyProbingHash<HashedObj>::rehash() {
 	for (auto &c : theLists)
 		c.info = EMPTY;
 	currentSize = 0;	//将旧表的元素重新插入到新表中,故currentSize变为0
-	for (auto &c : oldLists)
-		if (c.info == ACTIVE)
-			insert(c.data);
+	for (auto &d : oldLists)
+		if (d.info == ACTIVE)
+			insert(d.data);
 }
 
 template<typename HashedObj>
