@@ -17,8 +17,10 @@ class MyHashSeparate {
 	 }  //哈希表的大小最好是素数,利于分布均匀.
 	bool contains(const HashedObj &x) const;
 	void makeEmpty();
-	bool insert(const HashedObj &x) const;
-	bool remove(const HashedObj &x) const;
+	bool insert(const HashedObj &x) ;
+	bool remove(const HashedObj &x) ;
+	int getTableSize() const { return theLists.size(); }
+	int getElementSize() const { return currentSize; }
  private:
 	std::vector<std::list<HashedObj> > theLists;  //哈希表,其元素为一个解决冲突的链表.
 	int currentSize;  
@@ -31,7 +33,7 @@ class MyHashSeparate {
 template<typename HashedObj>
 inline bool MyHashSeparate<HashedObj>::contains(const HashedObj & x) const {
 	int temp = myhash(x);
-	return std::find(theLists[temp].begin(), theLists[temp].end(),x);
+	return std::find(theLists[temp].begin(), theLists[temp].end(), x) != theLists[temp].end();
 }
 
 template<typename HashedObj>
@@ -43,9 +45,9 @@ inline void MyHashSeparate<HashedObj>::makeEmpty() {
 }
 
 template<typename HashedObj>
-inline bool MyHashSeparate<HashedObj>::insert(const HashedObj & x) const {
-	std::list<HashedObj> & whichlist = theLists[hash(x)];
-	if (std::find(whichlist.begin(), whichlist.end(), x) == whichlist.end())
+inline bool MyHashSeparate<HashedObj>::insert(const HashedObj & x) {
+	std::list<HashedObj> & whichlist = theLists[myhash(x)];
+	if (std::find(whichlist.begin(), whichlist.end(), x) != whichlist.end())
 		return false;
 	whichlist.push_front(x);
 	if (++currentSize>theLists.size()) {
@@ -55,8 +57,8 @@ inline bool MyHashSeparate<HashedObj>::insert(const HashedObj & x) const {
 }
 
 template<typename HashedObj>
-inline bool MyHashSeparate<HashedObj>::remove(const HashedObj & x) const {
-	std::list<HashedObj> & whichlist = theLists[hash(x)];
+inline bool MyHashSeparate<HashedObj>::remove(const HashedObj & x) {
+	std::list<HashedObj> & whichlist = theLists[myhash(x)];
 	std::list<HashedObj>::iterator itr = std::find(whichlist.begin(), whichlist.end(), x);
 	if (itr == whichlist.end()) return false;
 	whichlist.erase(itr);
@@ -67,7 +69,7 @@ inline bool MyHashSeparate<HashedObj>::remove(const HashedObj & x) const {
 template<typename HashedObj>
 inline void MyHashSeparate<HashedObj>::rehash() {
 	std::vector<std::list<HashedObj> > oldList = theLists;
-	theLists.resize(oldList.size());
+	theLists.resize(nextPrime(oldList.size()));
 	for (auto &c : theLists)
 		c.clear();
 	currentSize = 0;

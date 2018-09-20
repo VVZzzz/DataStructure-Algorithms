@@ -34,6 +34,9 @@ class MyProbingHash {
 	const HashedObj &retrive(const KeyType &key) const{
 		return theLists[findPos(key)];
 	}
+
+	int getTableSize() const { return theLists.size(); }
+	int getElementSize() const { return currentSize; }
  private:
   struct HashEntry {
 		HashedObj data;
@@ -110,7 +113,7 @@ inline bool MyProbingHash<HashedObj>::isActive(int currentPos) const {
 template<typename HashedObj>
 inline int MyProbingHash<HashedObj>::findPos(const HashedObj & x) const {
 	int offset = 1;
-	int currpos = hash(x);
+	int currpos = myhash(x);
 	while (theLists[currpos].info!=EMPTY&&
 				 theLists[currpos].data!=x) {
 		currpos += offset;

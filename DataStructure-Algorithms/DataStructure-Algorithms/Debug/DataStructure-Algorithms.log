@@ -1,8 +1,41 @@
-﻿生成启动时间为 2018/9/20 17:33:45。
-     1>项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”在节点 2 上(Build 个目标)。
-     1>I:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.Platform.targets(64,5): error MSB8020: The build tools for v140 (Platform Toolset = 'v140') cannot be found. To build using the v140 build tools, please install v140 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Upgrade Solution...".
-     1>已完成生成项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”(Build 个目标)的操作 - 失败。
-
-生成失败。
-
-已用时间 00:00:00.00
+﻿  main.cpp
+f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\hashfunc.h(12): warning C4018: “<”: 有符号/无符号不匹配
+f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(74): warning C4018: “<”: 有符号/无符号不匹配
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(73): note: 编译类 模板 成员函数“void MyProbingHash<std::string>::makeEmpty(void)”时
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(19): note: 参见对正在编译的函数 模板 实例化“void MyProbingHash<std::string>::makeEmpty(void)”的引用
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\main.cpp(14): note: 参见对正在编译的类 模板 实例化“MyProbingHash<std::string>”的引用
+f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(85): warning C4018: “>”: 有符号/无符号不匹配
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(80): note: 编译类 模板 成员函数“bool MyProbingHash<std::string>::insert(const HashedObj &)”时
+          with
+          [
+              HashedObj=std::string
+          ]
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\main.cpp(19): note: 参见对正在编译的函数 模板 实例化“bool MyProbingHash<std::string>::insert(const HashedObj &)”的引用
+          with
+          [
+              HashedObj=std::string
+          ]
+f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(121): warning C4018: “>=”: 有符号/无符号不匹配
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(114): note: 编译类 模板 成员函数“int MyProbingHash<std::string>::findPos(const HashedObj &) const”时
+          with
+          [
+              HashedObj=std::string
+          ]
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(69): note: 参见对正在编译的函数 模板 实例化“int MyProbingHash<std::string>::findPos(const HashedObj &) const”的引用
+          with
+          [
+              HashedObj=std::string
+          ]
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(68): note: 编译类 模板 成员函数“bool MyProbingHash<std::string>::contains(const HashedObj &) const”时
+          with
+          [
+              HashedObj=std::string
+          ]
+  f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\main.cpp(26): note: 参见对正在编译的函数 模板 实例化“bool MyProbingHash<std::string>::contains(const HashedObj &) const”的引用
+          with
+          [
+              HashedObj=std::string
+          ]
+f:\dream\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(52): warning C4715: “MyProbingHash<std::basic_string<char,std::char_traits<char>,std::allocator<char> > >::HashEntry::operator=”: 不是所有的控件路径都返回值
+  DataStructure-Algorithms.vcxproj -> F:\Dream\DataStructure-Algorithms\DataStructure-Algorithms\Debug\DataStructure-Algorithms.exe
+  DataStructure-Algorithms.vcxproj -> F:\Dream\DataStructure-Algorithms\DataStructure-Algorithms\Debug\DataStructure-Algorithms.pdb (Partial PDB)

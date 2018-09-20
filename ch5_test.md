@@ -98,5 +98,14 @@ b.类似于第5章的线性探测的平均查找的代价公式的推导，此�
 ![](https://i.imgur.com/2I30gpk.png)   
 
 ### 5.17（重要）
-见```MyPair.h```,```Diectionary.h```.
+见```MyPair.h```,```Diectionary.h```.   
 
+### 5.18 
+略
+
+### 5.19（重要）
+掌握扩展散列的过程。  
+![](https://i.imgur.com/cgFyB8q.png)
+
+### 5.20(重要)
+搞完B树的实现再搞。
