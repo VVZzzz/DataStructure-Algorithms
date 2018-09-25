@@ -8,7 +8,9 @@
 template <typename T>
 class MyBinaryHeap{
  public:
-	explicit MyBinaryHeap(int capacity = 100);
+	 explicit MyBinaryHeap(int capacity = 100) {
+		 heap_arry.resize(capacity);
+	}
 	//该构造函数先填入数据，在全部节点下滤。buildHeap()即为全部节点下滤。
 	explicit MyBinaryHeap(const std::vector<T> &items)
 		: heap_arry(items.size()+10)
@@ -37,6 +39,16 @@ class MyBinaryHeap{
 	void percolateDown(int hole);  //下滤操作
 	void percolateUp(int hole);  //上滤操作
 };
+
+template<typename T>
+inline bool MyBinaryHeap<T>::isEmpty() const {
+	return currentSize == 0;
+}
+
+template<typename T>
+inline const T & MyBinaryHeap<T>::findMin() const {
+	return heap_arry[1];
+}
 
 //最坏情况为O(logN)
 template <typename T>
@@ -78,6 +90,12 @@ void MyBinaryHeap<T>::deleteMin(const T & minItem) {
 	minItem = heap_arry[1];
 	heap_arry[1] = heap_arry[currentSize--];
 	percolateDown(1);
+}
+
+template<typename T>
+inline void MyBinaryHeap<T>::makeEmpty() {
+	heap_arry.clear();
+	currentSize = 0;
 }
 
 template <typename T>

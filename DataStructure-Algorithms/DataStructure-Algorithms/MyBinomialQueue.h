@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
+#include <stdexcept>
+#include <iostream>
 //二项队列,由二项树集合组成,用vector保存各个二项树的根
 template <typename T>
 class MyBinomialQueue {
  public:
-	 MyBinomialQueue();
+	 MyBinomialQueue() {}
 	 MyBinomialQueue(const MyBinomialQueue & rhs);
 	 MyBinomialQueue(const T & item);
 	 ~MyBinomialQueue();
@@ -29,6 +31,8 @@ class MyBinomialQueue {
 		 BinomialNode *nextSibling;
 		 BinomialNode(const T &element,BinomialNode *l,BinomialNode *n)
 			 : data(element), left(l), nextSibling(n) { }
+		 BinomialNode()
+			 : data(T()),left(nullptr),nextSibling(nullptr) { }
 	 };
 	 enum { DEFAULT_TREES = 1 };
 	 int currentSize;  //vector中当前的节点数
@@ -53,6 +57,37 @@ class MyBinomialQueue {
 	 void makeEmpty(BinomialNode *&t);
 	 BinomialNode *clone(BinomialNode *t) const;
 };
+
+template<typename T>
+inline void MyBinomialQueue<T>::deleteMin() {
+	try {
+		if (empty())
+			throw std::underflow_error("the BinomialQueue is empty!");
+	}
+	catch (const std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
+	
+	int minIndex = findMinIndex();
+	//minItem = theTrees[minIndex]->data;
+	BinomialNode *oldminTree = theTrees[minIndex];
+	BinomialNode *newminTree = oldminTree->left;
+	delete oldminTree;
+	
+	//将删掉根节点的那棵树放到一个新的二项队列中
+	MyBinomialQueue newQueue;
+	newQueue.theTrees.resize(minIndex + 1);
+	newQueue.currentSize = (1 << minIndex) - 1;
+	for (int i = minIndex - 1; i >= 0; i--) {
+		newQueue.theTrees[i] = newminTree;
+		newminTree = newminTree->nextSibling;
+		newQueue.theTrees[i]->nextSibling = nullptr;
+	}
+
+	theTrees[minIndex] = nullptr;
+	currentSize -= newQueue.currentSize + 1;
+	merge(newQueue);
+}
 
 template <typename T>
 void MyBinomialQueue<T>::merge(MyBinomialQueue & rhs) {
@@ -115,5 +150,16 @@ void MyBinomialQueue<T>::merge(MyBinomialQueue & rhs) {
 
 template <typename T>
 int MyBinomialQueue<T>::findMinIndex() const {
+	int i, minIndex;
+	for (i = 0; theTrees[i] == nullptr; i++);
+	for (minIndex = i; i < theTrees.size(); i++) {
+		if (theTrees[i] != nullptr && theTrees[i] < theTrees[minIndex])
+			minIndex = i;
+	}
+	return minIndex;
+}
 
+template<typename T>
+inline bool MyBinomialQueue<T>::isEmpty() const {
+	return currentSize==0;
 }
