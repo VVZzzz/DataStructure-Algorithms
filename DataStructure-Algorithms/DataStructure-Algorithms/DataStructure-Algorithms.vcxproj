@@ -25,6 +25,7 @@
     <ClInclude Include="HashFunc.h" />
     <ClInclude Include="MyAVL.h" />
     <ClInclude Include="MyBinaryHeap.h" />
+    <ClInclude Include="MyBinomialQueue.h" />
     <ClInclude Include="MyDeque.h" />
     <ClInclude Include="MyHashProbing.h" />
     <ClInclude Include="MyHashSeparateChain.h" />
