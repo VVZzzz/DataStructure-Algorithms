@@ -59,6 +59,8 @@ void MyBinaryHeap<T>::insert(const T &x){
 	int hole = ++currentSize;
 	heap_arry[hole]= x;
 	percolateUp(hole);
+	//Practice 6.5
+	//heap_arry[0] = x;
 }
 
 template <typename T>

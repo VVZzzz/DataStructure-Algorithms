@@ -22,6 +22,11 @@ class MyLeftistHeap{
 	 void deleteMin();
 	 void deleteMin(T &minItem);
 	 void makeEmpty();
+
+	 //void remove(T &minItem) is for 6.23(a).具体操作在Chapter11中
+	 //删除某一个节点t,将t->left,r->right合并,代替t。同时要注意更新npl,同时可能要交换左右子树。
+	 //按理说堆的操作不应该去操作堆内部的节点的
+	 void remove(T &minItem);
 	 //递归的合并方法
 	 void merge(MyLeftistHeap & rhs);	 //将rhs合并到this堆,rhs置为nullptr
 
@@ -69,6 +74,9 @@ class MyLeftistHeap{
 	 }
 
 	 void makeEmpty(LeftistNode *t);
+	 void remove(T &minItem, LeftistNode *t) {
+		 //TODO
+	 }
 };
 
 template <typename T>
