@@ -2,6 +2,9 @@
 //左式堆,解决二叉堆无法合并的问题
 #include <stdexcept>
 #include <iostream>
+#include <queue>
+#include <stack>
+#include <vector>
 template <typename T>
 class MyLeftistHeap{
  public:
@@ -31,14 +34,27 @@ class MyLeftistHeap{
 	 void merge(MyLeftistHeap & rhs);	 //将rhs合并到this堆,rhs置为nullptr
 
 	 const MyLeftistHeap & operator=(const MyLeftistHeap & rhs);
+
+	 //懒惰删除方案,设立标志,若根节点被设为isDeleted.则lazyFindMin()和lazyDeleteMin()按以下进行。
+	 void lazyDelete(LeftistNode *t) { t->isDeleted = true; }
+	 const T & lazyFindMin();
+	 void lazyDeleteMin();
  private:
 	 struct LeftistNode {
 		 T data;
 		 LeftistNode *left;
 		 LeftistNode *right;
 		 int npl;	 //零路径长
-		 LeftistNode(const T &ele,LeftistNode *l=nullptr,LeftistNode *r=nullptr,int n=0)
-			 : data(ele), left(l), right(r), npl(n) {}
+		 //lazy delete标志
+		 bool isDeleted;
+		 LeftistNode(const T &ele,LeftistNode *l=nullptr,LeftistNode *r=nullptr,int n=0,bool f=false)
+			 : data(ele), left(l), right(r), npl(n), isDeleted(f) {}
+		 void reset() {
+			 left = nullptr;
+			 right = nullptr;
+			 npl = nullptr;
+			 isDeleted = false;
+		 }
 	 };
 
 	 LeftistNode *root;
@@ -149,4 +165,49 @@ const MyLeftistHeap<T> & MyLeftistHeap<T>::operator=(const MyLeftistHeap & rhs) 
 	if (this == &rhs) return *this;
 	this->root = clone(rhs.root);
 	return *this;
+}
+
+template <typename T>
+const T & MyLeftistHeap<T>::lazyFindMin() {
+	if (root->isDeleted)
+		lazyDeleteMin();
+	return root->data;
+}
+
+template <typename T>
+void MyLeftistHeap<T>::lazyDeleteMin() {
+	root->isDeleted = true;
+	std::vector<LeftistNode *> nodeVec;
+	std::stack<LeftistNode *> nodeStack;
+	//借用stack进行前序遍历,将遍历的节点放入nodeVec中
+	nodeStack.push(root);
+	while (!nodeStack.empty()) {
+		LeftistNode *temp = nodeStack.top();
+		nodeVec.push_back(temp);
+		nodeStack.pop();
+		if (temp->right != nullptr)
+			nodeStack.push(temp->right);
+		if (temp->left != nullptr)
+			nodeStack.push(temp->left);
+	}
+	//从nodeVec中进行两两合并,将每次合并的结果
+	auto i = nodeVec.begin(),j = i;
+	for (; i != nodeVec.end(); i++) {
+		if (*i->isDeleted) {
+			delete *i;
+			continue;
+		}	else {
+			if ((i != j) && (!(*j->isDeleted))) {
+				*i->reset();
+				*j->reset();
+				nodeVec.push_back(merge(*i, *j));
+				j = i + 1;
+				continue;
+			}
+			j = i;
+		}
+	}
+	root = nodeVec.back();
+	//此处注意,不用clone。直接赋值给root,因为vector中保存的是指针,函数结束后不进行对指针所指向的元素的delete.
+	//故其节点实体仍在,除非我们使用makeEmpty.
 }
