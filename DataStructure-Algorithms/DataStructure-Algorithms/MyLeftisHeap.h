@@ -39,6 +39,9 @@ class MyLeftistHeap{
 	 void lazyDelete(LeftistNode *t) { t->isDeleted = true; }
 	 const T & lazyFindMin();
 	 void lazyDeleteMin();
+
+	 //练习6.25 更为合适的buildHeap(),斜堆同样也可以这样操作进行buildHeap().
+	 void buildHeap(const std::vector<T> &tvec);
  private:
 	 struct LeftistNode {
 		 T data;
@@ -210,4 +213,28 @@ void MyLeftistHeap<T>::lazyDeleteMin() {
 	root = nodeVec.back();
 	//此处注意,不用clone。直接赋值给root,因为vector中保存的是指针,函数结束后不进行对指针所指向的元素的delete.
 	//故其节点实体仍在,除非我们使用makeEmpty.
+}
+
+template<typename T>
+void MyLeftistHeap<T>::buildHeap(const std::vector<T>& tvec) {
+	std::queue<LeftistNode *> nodeQueue;
+	for (int i = 0; i < tvec.size(); i+=2) {
+		if (i == (tvec.size() - 1)) {
+			nodeQueue.push(new LeftistNode(tvec[i]));
+			break;
+		}
+		nodeQueue.push(merge(new LeftistNode(tvec[i]), new LeftistNode(tvec[i + 1])));
+	}
+	while (!nodeQueue.empty()) {
+		root = nodeQueue.front();
+		nodeQueue.pop();
+		if (nodeQueue.empty()) {
+			break;
+		}
+		else {
+			root = merge(root, nodeQueue.front());
+			nodeQueue.pop();
+		}
+		nodeQueue.push(root);
+	}
 }
