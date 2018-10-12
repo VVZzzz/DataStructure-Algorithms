@@ -32,6 +32,7 @@
     <ClInclude Include="MyLeftisHeap.h" />
     <ClInclude Include="MyList.h" />
     <ClInclude Include="MyPair.h" />
+    <ClInclude Include="MySort.h" />
     <ClInclude Include="MyTree.h" />
     <ClInclude Include="MyVector.h" />
     <ClInclude Include="nextPrime.h" />
@@ -42,13 +43,13 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C25477D8-F4B5-45E9-991D-C992BC192A73}</ProjectGuid>
     <RootNamespace>DataStructureAlgorithms</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

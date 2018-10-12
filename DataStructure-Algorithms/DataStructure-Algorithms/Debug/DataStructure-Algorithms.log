@@ -1,8 +1,18 @@
-﻿生成启动时间为 2018/9/25 11:28:32。
-     1>项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”在节点 2 上(Build 个目标)。
-     1>I:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.Platform.targets(64,5): error MSB8020: The build tools for v140 (Platform Toolset = 'v140') cannot be found. To build using the v140 build tools, please install v140 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Upgrade Solution...".
-     1>已完成生成项目“J:\王润涵\practice_project\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms\DataStructure-Algorithms.vcxproj”(Build 个目标)的操作 - 失败。
-
-生成失败。
-
-已用时间 00:00:00.06
+﻿  main.cpp
+e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(131): warning C4018: “<”: 有符号/无符号不匹配
+  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(113): note: 参见对正在编译的函数 模板 实例化“void MySort::merge<int>(std::vector<int,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>> &,int,int,int)”的引用
+          with
+          [
+              _Ty=int
+          ]
+  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(103): note: 参见对正在编译的函数 模板 实例化“void MySort::mergeSort<int>(std::vector<int,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>> &,int,int)”的引用
+          with
+          [
+              _Ty=int
+          ]
+  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\main.cpp(11): note: 参见对正在编译的函数 模板 实例化“void MySort::mergeSort<int>(std::vector<int,std::allocator<_Ty>> &)”的引用
+          with
+          [
+              _Ty=int
+          ]
+  DataStructure-Algorithms.vcxproj -> E:\Personal-Project\DataStructure-Algorithms\DataStructure-Algorithms\Debug\DataStructure-Algorithms.exe
