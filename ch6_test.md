@@ -158,4 +158,37 @@ b. 这中建堆方式更加左式化。
 		 55 51 24 21 24 14      
 		  65 65 26 16       
 		            18     
-B2和B4  
+B2和B4      
+
+### 6.34（重要）
+高效的insert操作,不调用merge(),思路如下：
+1.找到为nullptr的那一个单元 i     
+2.定义res指针     
+3.遍历0到i,直接调整res的左右子树。     
+4.最后的theTrees[i]=res即可。      
+见```MyBinomialQueue.h```insert2()
+
+### 6.38  
+不要将键值保留在堆中，而只保留节点中键的值与父键的值之间的差值。这样对于decreaseAllkey()，只用改变根健的值即可。   
+
+### 6.39（重要）  
+两种选择算法的比较,一个是先整体buildHeap，再deleteMin() K 次,需要O(N+klogN).另一个只对前k个元素建队,之后调整(n-k)次，需要O(k+(n-k)logk)=O(nlogk).   
+  
+O（N + k log N）是比O（N log k）更好的界限。 如果k = O（N / log N），则第一个界限是O（N）。
+一旦k增长快于常数，第二个界限就会超过这个。 对于其他值
+Ω（N / log N）= k = o（N），第一个界限更好。 当k =Θ（N）时，界限是相同的。
+
+### 6.40（重要）
+将clone()中改为如下：
+  
+	  LeftistNode *clone2(LeftistNode *t) const {
+	    if (t == nullptr) return nullptr;
+	    LeftistNode *newroot =
+	        new LeftistNode(t->data, nullptr, clone2(t->right), t->npl);
+	    if (t->left == nullptr)
+	      newroot->left = nullptr;
+	    else {
+	      newroot->left = clone2(t->left);
+	    }
+	    return newroot;
+	  }
