@@ -8,7 +8,9 @@ int main() {
   //MySort::heapSort(res);
   //MySort::insertionSort(res);
   //MySort::shellSort(res);
-  MySort::mergeSort(res);
+  //MySort::mergeSort(res);
+  //MySort::quickSort(res);
+  MySort::quickSelect(res, 0, res.size(), 2);
   for (auto i : res) {
     std::cout << i << " ";
   }

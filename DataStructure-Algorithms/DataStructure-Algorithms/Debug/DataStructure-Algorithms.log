@@ -1,16 +1,16 @@
 ﻿  main.cpp
-e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(131): warning C4018: “<”: 有符号/无符号不匹配
-  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(113): note: 参见对正在编译的函数 模板 实例化“void MySort::merge<int>(std::vector<int,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>> &,int,int,int)”的引用
+e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(84): warning C4018: “<”: 有符号/无符号不匹配
+  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(78): note: 参见对正在编译的函数 模板 实例化“void MySort::insertionSort<int>(std::vector<int,std::allocator<_Ty>> &,int,int)”的引用
           with
           [
               _Ty=int
           ]
-  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(103): note: 参见对正在编译的函数 模板 实例化“void MySort::mergeSort<int>(std::vector<int,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>> &,int,int)”的引用
+  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mysort.h(229): note: 参见对正在编译的函数 模板 实例化“void MySort::insertionSort<int>(std::vector<int,std::allocator<_Ty>> &)”的引用
           with
           [
               _Ty=int
           ]
-  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\main.cpp(11): note: 参见对正在编译的函数 模板 实例化“void MySort::mergeSort<int>(std::vector<int,std::allocator<_Ty>> &)”的引用
+  e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\main.cpp(13): note: 参见对正在编译的函数 模板 实例化“void MySort::quickSelect<int>(std::vector<int,std::allocator<_Ty>> &,int,int,int)”的引用
           with
           [
               _Ty=int
