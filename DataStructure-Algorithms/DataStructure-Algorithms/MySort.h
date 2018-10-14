@@ -2,6 +2,25 @@
 #include <vector>
 namespace MySort {
 /**
+ * 较大对象进行排序时,使用指针数组策略.
+ * 为此定义其对象的指针
+ */
+template <typename T>
+class Pointer {
+ public:
+  //合成的构造函数,pointee被初始化为nullptr
+  Pointer(T *rhs = nullptr) : pointee(rhs) {}
+  bool operator<(const Pointer &rhs) const { return *pointee < *rhs.pointee; }
+  operator T *() const { return *pointee; }
+
+ private:
+  T *pointee;
+};
+
+//大对象的排序方法,此处可以修改接口添加函数对象.
+template <typename T>
+void largeObjectSort(std::vector<T> &a);
+/**
  * 插入排序 , 时间O(N^2),空间O(1)
  * 注意for循环是从1开始,循环N-1次
  */
@@ -10,7 +29,7 @@ void insertionSort(std::vector<T> &a);
 template <typename T>
 void insertionSort(std::vector<T> &a, int left, int right);
 
-/**
+/**j
  * 谢尔排序, 时间不定,依赖增量序列,时间 O(N^(4/3)),空间O(1)
  * 用谢尔增量序列,Ht=size()/2,H(k)=H(k+1)/2
  */
@@ -71,7 +90,29 @@ const T &median3(std::vector<T> &a, int left, int right);
  */
 template <typename T>
 void quickSelect(std::vector<T> &a, int left, int right, int k);
+
 }  // namespace MySort
+
+template <typename T>
+void MySort::largeObjectSort(std::vector<T> &a) {
+  vector<Pointer<T>> p(a.size());
+  for (size_t i = 0; i < a.size(); i++) {
+    p[i] = &a[i];
+  }
+  int j, nextj;
+  quickSort(p);  //此处可以为任意排序,修改为函数对象
+  for (size_t i = 0; i < a.size(); i++) {
+    if (p[i] != &a[i]) {
+      for (j = i; p[j] != a[i]; j = nextj) {
+        nextj = p[j] - &a[0];
+        a[j] = *p[j];
+        p[j] = &a[j];
+      }
+    }
+    a[j] = temp;
+    p[j] = &a[j];
+  }
+}
 
 template <typename T>
 void MySort::insertionSort(std::vector<T> &a) {
