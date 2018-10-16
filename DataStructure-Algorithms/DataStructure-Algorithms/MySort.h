@@ -67,6 +67,9 @@ template <typename T>
 void merge(std::vector<T> &a, std::vector<T> &tempArray, int leftPos,
            int rightPos, int rightEnd);
 
+//归并排序的非递归形式
+template <typename T>
+void mergeSort2(std::vector<T> &a);
 /**
  * 快速排序,枢纽元选为a[left] a[center] a[right]的中间值
  * 时间: 平均O(NlogN) 最坏O(N^2)
@@ -210,6 +213,21 @@ void MySort::merge(std::vector<T> &a, std::vector<T> &tempArray, int leftPos,
 }
 
 template <typename T>
+void MySort::mergeSort2(std::vector<T> &a) {
+  int n = a.size();
+  std::vector<T> tempArray(n);
+  for (int sublistSize = 1; sublistSize <= n; sublistSize <<= 1;) {
+    int startPos = 0;
+    while (startPos + sublistSize < n) {
+      int startPos2 = startPos + sublistSize;
+      int endPos = min(startPos2 + sublistSize - 1, n);
+      merge(a, tempArray, startPos, startPos2, endPos);
+      startPos2 = endPos + 1;
+    }
+  }
+}
+
+template <typename T>
 void MySort::quickSort(std::vector<T> &a) {
   quickSort(a, 0, a.size() - 1);
 }
@@ -224,7 +242,10 @@ void MySort::quickSort(std::vector<T> &a, int left, int right) {
         ;
       while (pivot < a[--j])
         ;
-      if (i < j) std::swap(a[i], a[j]);
+      if (i < j)
+        std::swap(a[i], a[j]);
+      else
+        break;
     }
     std::swap(a[i], a[right - 1]);
     // recursive
