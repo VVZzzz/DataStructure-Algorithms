@@ -20,6 +20,7 @@ class Pointer {
 //大对象的排序方法,此处可以修改接口添加函数对象.
 template <typename T>
 void largeObjectSort(std::vector<T> &a);
+
 /**
  * 插入排序 , 时间O(N^2),空间O(1)
  * 注意for循环是从1开始,循环N-1次
@@ -70,6 +71,7 @@ void merge(std::vector<T> &a, std::vector<T> &tempArray, int leftPos,
 //归并排序的非递归形式
 template <typename T>
 void mergeSort2(std::vector<T> &a);
+
 /**
  * 快速排序,枢纽元选为a[left] a[center] a[right]的中间值
  * 时间: 平均O(NlogN) 最坏O(N^2)
@@ -81,6 +83,13 @@ void quickSort(std::vector<T> &a);
 
 template <typename T>
 void quickSort(std::vector<T> &a, int left, int right);
+
+//快速排序的非递归形式：主要是借助一个栈(或数组模拟栈）
+template <typename T>
+void quickSort2(std::vector<T> &a);
+
+template <typename T>
+void quickSort2(std::vector<T> &a, int left, int right);
 
 //三数中值分割,将a[left] a[center] a[right]进行排序,并将min放在[left]
 // max放入[right] mid 放入[right-1],返回mid值
@@ -253,6 +262,41 @@ void MySort::quickSort(std::vector<T> &a, int left, int right) {
     quickSort(a, i + 1, right);
   } else {
     insertionSort(a, left, right);
+  }
+}
+
+template <typename T>
+void MySort::quickSort2(std::vector<T> &a) {
+  return quickSort2(a, 0, a.size() - 1);
+}
+
+template <typename T>
+void MySort::quickSort2(std::vector<T> &a, int left, int right) {
+  int startArray[a.size()]{0};
+  int endArray[a.size()]{0};
+  int p = 0;
+  startArray[p] = left;
+  endArray[p] = right;
+  while (p) {
+    int ltemp = startArray[--p];
+    int rtemp = endArray[p];
+    T pivot = median3(a, ltemp, rtemp);
+    int i = ltemp, j = rtemp - 1;
+    for (;;) {
+      while (a[++i] < pivot)
+        ;
+      while (pivot < a[--j])
+        ;
+      if (i < j)
+        std::swap(a[i], a[j]);
+      else
+        break;
+    }
+    std::swap(a[i], a[right - 1]);
+    startArray[p++] = left;
+    endArray[p] = i - 1;
+    startArray[p++] = i + 1;
+    endArray[p] = right;
   }
 }
 
