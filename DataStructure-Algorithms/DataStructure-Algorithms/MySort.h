@@ -113,6 +113,7 @@ void quickSelect(std::vector<T> &a, int left, int right, int k);
 template <typename T>
 int mid_AUB(std::vector<T> &a, int la, int ra, std::vector<T> &b, int lb,
             int rb);
+
 }  // namespace MySort
 
 template <typename T>
