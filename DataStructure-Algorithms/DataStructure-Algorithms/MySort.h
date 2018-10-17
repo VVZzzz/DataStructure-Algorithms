@@ -30,7 +30,7 @@ void insertionSort(std::vector<T> &a);
 template <typename T>
 void insertionSort(std::vector<T> &a, int left, int right);
 
-/**j
+/**
  * 谢尔排序, 时间不定,依赖增量序列,时间 O(N^(4/3)),空间O(1)
  * 用谢尔增量序列,Ht=size()/2,H(k)=H(k+1)/2
  */
@@ -76,7 +76,7 @@ void mergeSort2(std::vector<T> &a);
  * 快速排序,枢纽元选为a[left] a[center] a[right]的中间值
  * 时间: 平均O(NlogN) 最坏O(N^2)
  * 空间: O(1)
- * 若递归时元素个数<=10,则使用插入排序
+ * 若递归时元素个数<=10,则使用插入排序(如果不加这个判断,则这个quickSort无法处理只有1个元素的情况(没有添加))
  */
 template <typename T>
 void quickSort(std::vector<T> &a);
@@ -103,6 +103,16 @@ const T &median3(std::vector<T> &a, int left, int right);
 template <typename T>
 void quickSelect(std::vector<T> &a, int left, int right, int k);
 
+/**
+ * 求已排序的序列A B:AUB的中值
+ * 要求A B已排序,且元素个数相等
+ * 时间：O(logN)
+ * A
+ * B长度不一样时，https://www.geeksforgeeks.org/median-of-two-sorted-arrays-of-different-sizes/
+ */
+template <typename T>
+int mid_AUB(std::vector<T> &a, int la, int ra, std::vector<T> &b, int lb,
+            int rb);
 }  // namespace MySort
 
 template <typename T>
@@ -128,13 +138,13 @@ void MySort::largeObjectSort(std::vector<T> &a) {
 
 template <typename T>
 void MySort::insertionSort(std::vector<T> &a) {
-  insertionSort(a, 0, a.size());
+  insertionSort(a, 0, a.size() - 1);
 }
 
 template <typename T>
 void MySort::insertionSort(std::vector<T> &a, int left, int right) {
   int j;
-  for (size_t i = left + 1; i < right; i++) {
+  for (size_t i = left + 1; i <= right; i++) {
     T temp = a[i];
     for (j = i; j > 0 && temp < a[j - 1]; j--) {
       a[j] = a[j - 1];
@@ -272,14 +282,18 @@ void MySort::quickSort2(std::vector<T> &a) {
 
 template <typename T>
 void MySort::quickSort2(std::vector<T> &a, int left, int right) {
-  int startArray[a.size()]{0};
-  int endArray[a.size()]{0};
+  int *startArray = new int[a.size()]{0};
+  int *endArray = new int[a.size()]{0};
   int p = 0;
   startArray[p] = left;
-  endArray[p] = right;
+  endArray[p++] = right;
   while (p) {
     int ltemp = startArray[--p];
     int rtemp = endArray[p];
+    if (ltemp + 10 > rtemp) {
+      insertionSort(a, ltemp, rtemp);
+      continue;
+    }
     T pivot = median3(a, ltemp, rtemp);
     int i = ltemp, j = rtemp - 1;
     for (;;) {
@@ -292,12 +306,14 @@ void MySort::quickSort2(std::vector<T> &a, int left, int right) {
       else
         break;
     }
-    std::swap(a[i], a[right - 1]);
-    startArray[p++] = left;
-    endArray[p] = i - 1;
-    startArray[p++] = i + 1;
-    endArray[p] = right;
+    std::swap(a[i], a[rtemp - 1]);
+    startArray[p] = ltemp;
+    endArray[p++] = i - 1;
+    startArray[p] = i + 1;
+    endArray[p++] = rtemp;
   }
+  delete[] startArray;
+  delete[] endArray;
 }
 
 template <typename T>
@@ -321,17 +337,43 @@ void MySort::quickSelect(std::vector<T> &a, int left, int right, int k) {
     for (;;) {
       while (a[++i] < pivot)
         ;
-      while (a[--i] > pivot)
+      while (a[--j] > pivot)
         ;
-      if (i < j) std::swap(a[i], a[j]);
-      if (k <= i /*k-1 < i*/)
-        quickSelect(a, left, i - 1, k);
-      else if (k > i + 1) {
-        quickSelect(a, i + 1, right, k);
-      }
-      // else [i]即为第k大的值
+      if (i < j)
+        std::swap(a[i], a[j]);
+      else
+        break;
     }
+    std::swap(a[i], a[right - 1]);
+    if (k <= i /*k-1 < i*/)
+      quickSelect(a, left, i - 1, k);
+    else if (k > i + 1) {
+      quickSelect(a, i + 1, right, k);
+    }  // else [i]即为第k大的值
+  } else
+    insertionSort(a, left, right);
+}
+
+template <typename T>
+int MySort::mid_AUB(std::vector<T> &a, int la, int ra, std::vector<T> &b,
+                    int lb, int rb) {
+  if (la == ra)
+    return a[la];
+  else if (lb == rb)
+    return b[lb];
+  int a_mid = (la + ra) / 2;
+  int b_mid = (lb + rb) / 2;
+  if (a[a_mid] > b[b_mid]) {
+    if (!((ra - la + 1) & 1)) b_mid++;
+    ra = a_mid;
+    lb = b_mid;
+  } else if (a[a_mid] < b[b_mid]) {
+    if (!((rb - lb + 1) & 1)) a_mid++;
+    la = a_mid;
+    rb = b_mid;
   } else {
-    insertionSort(a);
+    return a[a_mid];
   }
+
+  return mid_AUB(a, la, ra, b, lb, rb);
 }
