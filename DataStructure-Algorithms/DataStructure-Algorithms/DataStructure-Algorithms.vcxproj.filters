@@ -66,6 +66,12 @@
     <ClInclude Include="MySort.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MyDisjSets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMaze.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -1,2 +1,6 @@
 ﻿  main.cpp
+e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mymaze.h(15): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mymaze.h(16): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mymaze.h(90): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\personal-project\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mymaze.h(91): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
   DataStructure-Algorithms.vcxproj -> E:\Personal-Project\DataStructure-Algorithms\DataStructure-Algorithms\Debug\DataStructure-Algorithms.exe
