@@ -28,6 +28,7 @@
     <ClInclude Include="MyBinomialQueue.h" />
     <ClInclude Include="MyDeque.h" />
     <ClInclude Include="MyDisjSets.h" />
+    <ClInclude Include="MyGraph.h" />
     <ClInclude Include="MyHashProbing.h" />
     <ClInclude Include="MyHashSeparateChain.h" />
     <ClInclude Include="MyLeftisHeap.h" />
