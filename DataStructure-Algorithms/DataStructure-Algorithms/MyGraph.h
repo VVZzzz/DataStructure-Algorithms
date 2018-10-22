@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
 #include <list>
+#include <map>
 #include <queue>
 #include <utility>
 #include <vector>
+using namespace std;
 template <typename T>
 
 class MyGraphList {
@@ -24,6 +26,10 @@ class MyGraphList {
     /*无权最短路径所需成员*/
     int dist;      // s到该结点的距离
     Vertex *path;  //记录路径：path到该节点
+
+    /*有权负值路径所需成员*/
+    bool isInqueue;  //是否进入了队列
+
     Vertex(const T &d, const list<std::pair<Vertex *, int>> &adj, int t, int id,
            bool k)
         : data(d), adjList(adj), topNum(t), indegree(id), known(k) {}
@@ -64,6 +70,13 @@ class MyGraphList {
     }
     return vp;
   }
+
+  /**
+   * 单源加权负值路径算法(Dijkstra算法不适用)
+   * 适用于路径为负值
+   * O(|E|*|V|)
+   */
+  void weightedNegative(Vertex *v);
 };
 
 template <typename T>
@@ -127,6 +140,52 @@ void MyGraphList<T>::dijkstraWeighedPath(Vertex *v) {
           c.first->dist = vp->dist + c.second;
           c.first->path = vp;
         }
+      }
+    }
+  }
+}
+
+template <typename T>
+void MyGraphList<T>::weightedNegative(Vertex *v) {
+  std::queue<Vertex *> q;
+  for (auto &c : vvector) {
+    c.dist = INT_MAX;
+    c.isInqueue = false;
+  }
+  v->dist = INT_MAX;
+  v->path = v;
+  v->isInqueue = true;
+  while (!q.empty()) {
+    Vertex *vp = q.front();
+    q.pop();
+    for (auto itr = vp->adjList.begin(); itr != vp->adjList.end(); itr++) {
+      if (vp->dist + *itr.second < *itr.first->dist) {
+        *itr.first->dist = vp->dist + *itr.second;
+        *itr.first->path = vp;
+        if (!(*itr.first->isInqueue)) q.push(*itr.first);
+      }
+    }
+  }
+}
+
+/**
+ * 所有顶点对的最短路径问题
+ * 无权最短路径:字梯问题
+ * 目标:得到所有单词的最短路径
+ */
+map<string, string> findChain(const map<string, vector<string>> &adjacentWords,
+                              const string &first) {
+  map<string, string> previousWord;
+  queue<string> q;
+  q.push(first);
+  while (!q.empty()) {
+    string current = q.front();
+    q.pop();
+    auto itr = adjacentWords.find(current);
+    const vector<string> &adj = itr->second;
+    for (int i = 0; i < adj.size(); i++) {
+      if (previousWord[adj[i]] == "") {
+        previousWord[adj[i]] = current;
       }
     }
   }
