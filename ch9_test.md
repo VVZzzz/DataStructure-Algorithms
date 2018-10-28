@@ -218,4 +218,74 @@ b. c. d. e.
 			        w->path=v;
 			    }
 		}
-	}   
+	}      
+
+
+### 9.15 （重要）
+1.Prim算法最小生成树：
+	   
+		   d  Path  
+		A  3  D
+		B  3  A  
+		C  1  G  
+		D  0  D  
+		E  2  B  
+		F  3  B  
+		G  2  F  
+		H  2  E
+		I  1  E  
+		J  7  I
+
+伪代码如下：
+  
+		void Prim(Vertex *v)
+		{
+		  v->dist=0;
+		  v->known=true;
+		  v->path=v;
+		  while(true) 
+		  {
+		    v=findSmallestDistUnknownVertex();
+		    if(v==nullptr) break;
+		  	for each w of v's unknown adjVertex
+		    {
+		   	  if(c(v,w)<dw) 
+		      {
+				w->dist=c(v,w);
+				w->path=v;
+			  }
+		    }
+		  }
+		}
+
+2.Kruskal算法：
+ 结果同上，伪代码：
+   
+		void Kruskal(Vertex *v)
+		{
+		  Disjsets disjsets(NUM_VERTEICES);
+		  prioity_queue<Edge> pq(edges);
+		  int acceptedEdges=0;
+		  while(acceptedEdges<NUM_VERTEICES-1)
+		  {
+			u,v=pq.front().Vertex();
+		    auto uset=disjsets.find(u);
+		    auto vset=disjsets.find(v);
+			if(uset != vset)
+			{
+			  disjsets.union(uset,vset);
+			  acceptedEdges++;
+			}
+		  }
+		}  
+
+
+### 9.17 （证明略）
+### 9.18 （Kruskal伪代码如上）  
+### 9.19 
+主要花费在并查集的find/union操作上。
+
+### 9.25（重要）（有向图边(v,w)的类别）
+1. Num[v]!=Num[w]可以明显得到v w不是同一个顶点，而是一条边。
+2. Num[v]>Num[w]&&low[v]>low[w] 得到(v,w)是一个交叉边，即v w不在同一条边上。 Num[v]>Num[w]保证v不是w的后代，low[v]>low[w]保证w不是v的后代。故是交叉边。
+3. 其余的情况，假设Num[v]>Num[w],通过进行DFS时将边push进栈可以判断(v,w)是前向边还是后向边。
