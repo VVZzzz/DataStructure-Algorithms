@@ -75,6 +75,9 @@
     <ClInclude Include="MyGraph.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Ch9practice.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

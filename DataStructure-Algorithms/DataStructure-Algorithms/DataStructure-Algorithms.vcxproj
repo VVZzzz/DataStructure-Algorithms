@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="ch3practice.hpp" />
     <ClInclude Include="ch4practice.hpp" />
+    <ClInclude Include="Ch9practice.hpp" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="HashFunc.h" />
     <ClInclude Include="MyAVL.h" />
