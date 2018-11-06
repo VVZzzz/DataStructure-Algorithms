@@ -37,6 +37,8 @@
     <ClInclude Include="MyList.h" />
     <ClInclude Include="MyMaze.h" />
     <ClInclude Include="MyPair.h" />
+    <ClInclude Include="MyRandom.hpp" />
+    <ClInclude Include="MySkipList.h" />
     <ClInclude Include="MySort.h" />
     <ClInclude Include="MyTree.h" />
     <ClInclude Include="MyVector.h" />
