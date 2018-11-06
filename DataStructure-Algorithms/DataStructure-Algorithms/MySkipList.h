@@ -3,6 +3,9 @@
 #include "MyRandom.hpp"
 /**
  * 跳跃表的实现
+ * insert(key): O(logN)
+ * deleteNode(key): O(logN)
+ * search(key): O(logN)
  */
 
 //最大层数: 16
@@ -14,9 +17,9 @@ class SkipList {
   ~SkipList() { freeList(); }
   bool search(const T &key);
   bool insert(const T &key);
-  bool delete (const T &key);
+  bool deleteNode(const T &key);
   size_t size() const { return size; }
-  int GetCurrentLevel();
+  int GetCurrentLevel() const { return level; }
 
  private:
   void createList();
@@ -59,7 +62,7 @@ bool SkipList<T>::search(const T &key) {
   //此时的p应该是小于key的最大元素
   p = p->forward[0];
   std::cout << p->key << std::endl;
-  if (p->key == key) {
+  if (p == tail || p->key == key) {
     return true;
   } else {
     return false;
@@ -79,11 +82,11 @@ bool SkipList<T>::insert(const T &key) {
     update[i] = p;
   }
   p = p->forward[0];
-  if (p->key == key) {
+  if ( p->key == key) {
     std::cout << "There has been " << key << std::endl;
     return false;
   } else {
-    int lv = rnd.randomInt(1, MAX_LEVEL);
+    int lv = createRndLevel();
     if (lv > level) {
       for (int i = level; i < lv; i++) update[i] = tail;
       level = lv;
@@ -96,6 +99,37 @@ bool SkipList<T>::insert(const T &key) {
     for (int i = 0; i < lv; i++) {
       toinsertp->forward[i] = update[i]->forward[i];
       update[i]->forward[i] = toinsertp;
+    }
+    return true;
+  }
+}
+
+template <typename T>
+bool SkipList<T>::deleteNode(const T &key) {
+  Node *update[MAX_LEVEL];
+  auto p = header;
+  for (int i = level - 1; i >= 0; i--) {
+    while (p->forward[i]->key < key) {
+      p = p->forward[0];
+    }
+    update[i] = p;
+  }
+  p = p->forward[0];
+  //此时p即为要删除的结点
+  if (p == tail || p->key != key) {
+    std::cout << "can't find the key !" << std::endl;
+    return false;
+  } else {
+    for (int i = 0; i < level; i++) {
+      //将p的前驱结点的后继更新为p的后继结点
+      if (update[i]->forward[i] != p) break;
+      update[i]->forward[i] = p->forward[i];
+    }
+    delete p;
+
+    //更新level,因为删除结点可能会导致level多了,浪费空间
+    while (level > 0 && (header->forward[level - 1] == tail)) {
+      level--;
     }
     return true;
   }
@@ -127,4 +161,9 @@ void SkipList<T>::freeList() {
   delete header;  // delete Node* 会调用Node的析构函数
   delete tail;
   size = 0;
+}
+
+template <typename T>
+int SkipList<T>::createRndLevel() {
+  return rnd.randomInt(1, MAX_LEVEL);
 }
