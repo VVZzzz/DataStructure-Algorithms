@@ -42,6 +42,7 @@
     <ClInclude Include="MySort.h" />
     <ClInclude Include="MyTree.h" />
     <ClInclude Include="MyVector.h" />
+    <ClInclude Include="MyVectorTest.h" />
     <ClInclude Include="nextPrime.h" />
   </ItemGroup>
   <ItemGroup>

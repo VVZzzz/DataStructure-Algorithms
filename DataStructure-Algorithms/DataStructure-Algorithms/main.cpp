@@ -1,5 +1,9 @@
+#define TEST_VECTOR
 #include <iostream>
-using namespace std;
+#include "MyVector.h"
+#include "MyVectorTest.h"
 int main() {
+  myvec_test();
+  system("pause");
   return 0;
 }
