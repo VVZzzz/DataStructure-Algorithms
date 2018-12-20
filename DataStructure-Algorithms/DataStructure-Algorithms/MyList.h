@@ -315,7 +315,7 @@ class MyList {
   iterator lazy_erase(iterator itr) {
     iterator retitr = itr.current->next;
     //这里注意要跳过istodel为true的结点
-    while (retitr && retitr.current->istodel) retitr++;
+    while ((retitr.current != nullptr) && retitr.current->istodel) retitr++;
     itr.current->istodel = true;
     if (++del_num >= size() / 2) {
       //清空
@@ -371,11 +371,17 @@ class MyList {
       std::cout << "current node's address is " << (int)(t) << std::endl;
       std::cout << "curr->data is " << t->data << std::endl;
       std::cout << "curr->prev is "
-                << ((t->prev == nullptr) ? "nullptr" : std::to_string(t->prev->data))
+                << ((t->prev == nullptr) ? "nullptr"
+                                         : std::to_string(t->prev->data))
                 << std::endl;
       std::cout << "curr->next is "
-                << ((t->next == nullptr) ? "nullptr" : std::to_string(t->next->data))
+                << ((t->next == nullptr) ? "nullptr"
+                                         : std::to_string(t->next->data))
                 << std::endl;
+      std::cout << "curr->isactive is " << std::boolalpha << t->isactive
+                << std::noboolalpha << std::endl;
+      std::cout << "curr->istodel is " << std::boolalpha << t->istodel
+                << std::noboolalpha << std::endl;
     } else {
       std::cout << "current node is nullptr!" << std::endl;
     }
