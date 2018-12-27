@@ -4,9 +4,9 @@
 #include "MyVectorTest.h"
 #include "MyList.h"
 #include "MyListTest.h"
+#include "MyBSTTest.h"
 int main() {
-  //myvec_test();
-  mylist_test();
+  bst_test();
   system("pause");
   return 0;
 }
