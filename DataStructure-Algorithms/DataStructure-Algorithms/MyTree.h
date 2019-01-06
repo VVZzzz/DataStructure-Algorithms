@@ -52,10 +52,31 @@ class BinarySearchTree {
   void makeRandomTree(int low, int up);
 
   // 4.37 打印[k1,k2]范围内的结点值
-  void printRange(const T &low, const T &up, BinaryNode *t) const;
+  void printRange(const T &low, const T &up) const {
+    return printRange(low, up, root);
+  }
 
   // 4.40 层序遍历二叉树
-  void levelOrder(BinaryNode *t) const;
+  void levelOrder() const { return levelOrder(root); }
+
+  //懒惰版本的一些成员函数
+  void lazy_insert(const T &x) { return lazy_insert(x, root); }
+  void lazy_contains(const T &x) const { return lazy_contains(x, root); }
+  void lazy_remove(const T &x) { return lazy_remove(x, root); }
+  void lazy_findMin() {
+    BinaryNode *node = lazy_findMin(root);
+    if (node == nullptr)
+      std::cout << "Tree is null." << std::endl;
+    else
+      std::cout << node->data << std::endl;
+  }
+  void lazy_findMax(const T &x) {
+    BinaryNode *node = lazy_findMax(root);
+    if (node == nullptr)
+      std::cout << "Tree is null." << std::endl;
+    else
+      std::cout << node->data << std::endl;
+  }
 
  private:
   struct BinaryNode {
@@ -98,7 +119,7 @@ class BinarySearchTree {
   }
 
   //懒惰删除版本的insert remove contains findMin findMax
-  void lazy_insert(const T &x, BinaryNode *&t) const;
+  void lazy_insert(const T &x, BinaryNode *&t) ;
   bool lazy_contains(const T &x, BinaryNode *&t) const;
   void lazy_remove(const T &x, BinaryNode *&t);
   void lazy_chkrmall();
@@ -128,7 +149,9 @@ class BinarySearchTree {
   int countNodes(BinaryNode *t) const;
   int countLeaves(BinaryNode *t) const;
   int countFullNodes(BinaryNode *t) const;
-  void remove_leaves(BinaryNode *&t) ;
+  void remove_leaves(BinaryNode *&t);
+  void printRange(const T &low, const T &up, BinaryNode *t) const;
+  void levelOrder(BinaryNode *t) const;
 };
 
 template <typename T>
@@ -288,7 +311,7 @@ inline void BinarySearchTree<T>::makeEmpty(BinaryNode *&t) {
 
 //懒惰删除版本的insert remove contains makeEmpty
 template <typename T>
-void BinarySearchTree<T>::lazy_insert(const T &x, BinaryNode *&t) const {
+void BinarySearchTree<T>::lazy_insert(const T &x, BinaryNode *&t) {
   if (t == nullptr) {
     theSize++;
     t = new BinaryNode(x, nullptr, nullptr, false);
@@ -300,7 +323,8 @@ void BinarySearchTree<T>::lazy_insert(const T &x, BinaryNode *&t) const {
     if (t->isDeleted)
       t->isDeleted = false;
     else
-    //已存在，do nothing;
+      //已存在，do nothing
+      ;
   }
 }
 
@@ -342,6 +366,7 @@ void BinarySearchTree<T>::lazy_remove(const T &x, BinaryNode *&t) {
 template <typename T>
 void BinarySearchTree<T>::lazy_chkrmall() {
   if (theSize <= deletedSize) {
+    std::cout << "执行lazy_dormall" << std::endl;
     lazy_dormall(root);
     deletedSize = 0;
   }
@@ -360,8 +385,13 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t) {
       // t->data = findMin(t->right)->data;  //找到右子树的最左子节点
       // remove(t->data, t->right);  //接着递归删除这个右子树的最左子结点
       BinaryNode *temp = lazy_findMin(t->right);
-      if (temp == nullptr)
-        ;  //说明t的右子树都是有删除标志的,删除所有即可.;
+      if (temp == nullptr) {
+        //说明t的右子树都是有删除标志的,删除所有即可.;
+        BinaryNode *delete_child_root = t->right;
+        while (true) {
+          //to do
+        }
+      }
       else {
         t->data = temp->data;
         temp->isDeleted = true;
@@ -370,8 +400,8 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t) {
     } else {
       BinaryNode *oldNode = t;
       t = (t->left != nullptr) ? t->left : t->right;
-      lazy_dormall(t);
       delete oldNode;
+      lazy_dormall(t);
     }
   }
 }
@@ -535,12 +565,12 @@ inline void BinarySearchTree<T>::printRange(const T &low, const T &up,
 template <typename T>
 inline void BinarySearchTree<T>::levelOrder(BinaryNode *t) const {
   if (t == nullptr) return;
-  queue<BinaryNode *> node_queue;
+  std::queue<BinaryNode *> node_queue;
   BinaryNode *opnode;
   node_queue.push(t);
   while (!node_queue.empty()) {
     opnode = node_queue.front();
-    //对opnode进行操作
+    std::cout << opnode->data << std::endl;
     node_queue.pop();
     if (opnode->left != nullptr) node_queue.push(opnode->left);
     if (opnode->right != nullptr) node_queue.push(opnode->right);

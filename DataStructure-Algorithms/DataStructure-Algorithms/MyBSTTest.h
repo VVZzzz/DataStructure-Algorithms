@@ -77,6 +77,24 @@ void bst_test() {
   bst.printTree();
   std::cout << "\ncountNodes()'s result: " << bst.countNodes() << std::endl;
   std::cout << "countLeaves()'s result: " << bst.countLeaves() << std::endl;
-  std::cout << "countFullNodes()'s result: " << bst.countFullNodes() << std::endl;
+  std::cout << "countFullNodes()'s result: " << bst.countFullNodes()
+            << std::endl
+            << std::endl;
+
+  //²âÊÔprintRange(const T &low, const T &up);
+  std::cout << "\n²âÊÔprintRange(low,up)" << std::endl;
+  bst.printRange(3, 7);
+
+  //²âÊÔ²ãÐò±éÀú
+  std::cout << "\n²âÊÔlevelOrder" << std::endl;
+  bst.levelOrder();
+
+  //²âÊÔÀÁ¶è°æ±¾µÄinsert remove contains findMin findMax
+  //²âÊÔlazy_insert()
+  std::cout << "\n²âÊÔlazy_insert()" << std::endl;
+  BinarySearchTree<int> lazy_bst;
+  std::vector<int> ivec{5, 2, 3, 4, 1, 7};
+  for (int i : ivec) lazy_bst.lazy_insert(i);
+  lazy_bst.printTree();
 
 }
