@@ -29,6 +29,18 @@ class BinarySearchTree {
   void insert(const T &x);
   void remove(const T &x);
 
+  //递归前中后序遍历二叉树
+  void preOrder() { return preOrder(root); }
+  void inOrder() { return inOrder(root); }
+  void postOrder() { return postOrder(root); }
+  // 4.40 层序遍历二叉树
+  void levelOrder() const { return levelOrder(root); }
+
+  //非递归前中后序
+  void preOrderNoRecur();
+  void inOrderNoRecur();
+  void postOrderNoRecur();
+
   const BinarySearchTree &operator=(const BinarySearchTree &rhs);
 
   //得到结点数
@@ -55,9 +67,6 @@ class BinarySearchTree {
   void printRange(const T &low, const T &up) const {
     return printRange(low, up, root);
   }
-
-  // 4.40 层序遍历二叉树
-  void levelOrder() const { return levelOrder(root); }
 
   //懒惰版本的一些成员函数
   void lazy_insert(const T &x) { return lazy_insert(x, root); }
@@ -119,7 +128,7 @@ class BinarySearchTree {
   }
 
   //懒惰删除版本的insert remove contains findMin findMax
-  void lazy_insert(const T &x, BinaryNode *&t) ;
+  void lazy_insert(const T &x, BinaryNode *&t);
   bool lazy_contains(const T &x, BinaryNode *&t) const;
   void lazy_remove(const T &x, BinaryNode *&t);
   void lazy_chkrmall();
@@ -151,7 +160,15 @@ class BinarySearchTree {
   int countFullNodes(BinaryNode *t) const;
   void remove_leaves(BinaryNode *&t);
   void printRange(const T &low, const T &up, BinaryNode *t) const;
+
+  void preOrder(BinaryNode *t);
+  void inOrder(BinaryNode *t);
+  void postOrder(BinaryNode *t);
   void levelOrder(BinaryNode *t) const;
+
+  void preOrderNoRecur(BinaryNode *t);
+  void inOrderNoRecur(BinaryNode *t);
+  void postOrderNoRecur(BinaryNode *t);
 };
 
 template <typename T>
@@ -387,12 +404,9 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t) {
       BinaryNode *temp = lazy_findMin(t->right);
       if (temp == nullptr) {
         //说明t的右子树都是有删除标志的,删除所有即可.;
-        BinaryNode *delete_child_root = t->right;
-        while (true) {
-          //to do
-        }
-      }
-      else {
+        BinaryNode *delete_child = t->right;
+        makeEmpty(delete_child);
+      } else {
         t->data = temp->data;
         temp->isDeleted = true;
         lazy_dormall(t->right);
@@ -563,6 +577,32 @@ inline void BinarySearchTree<T>::printRange(const T &low, const T &up,
 }
 
 template <typename T>
+inline void BinarySearchTree<T>::preOrder(BinaryNode *t) {
+  if (t == nullptr)
+    return;
+  else
+    std::cout << t->data << std::endl;
+  preOrder(t->right);
+  preOrder(t->left);
+}
+
+template <typename T>
+inline void BinarySearchTree<T>::inOrder(BinaryNode *t) {
+  if (t == nullptr) return;
+  inOrder(t->left);
+  std::cout << t->data << std::endl;
+  inOrder(t->right);
+}
+
+template <typename T>
+inline void BinarySearchTree<T>::postOrder(BinaryNode *t) {
+  if (t == nullptr) return;
+  inOrder(t->left);
+  inOrder(t->right);
+  std::cout << t->data << std::endl;
+}
+
+template <typename T>
 inline void BinarySearchTree<T>::levelOrder(BinaryNode *t) const {
   if (t == nullptr) return;
   std::queue<BinaryNode *> node_queue;
@@ -576,4 +616,38 @@ inline void BinarySearchTree<T>::levelOrder(BinaryNode *t) const {
     if (opnode->right != nullptr) node_queue.push(opnode->right);
   }
   return;
+}
+
+template <typename T>
+inline void BinarySearchTree<T>::preOrderNoRecur(BinaryNode *t) {
+  std::vector<BinaryNode *> node_vec;
+  while (!node_vec.empty() || t!=nullptr) {
+    while (t != nullptr) {
+      std::cout << t->data << std::endl;
+      node_vec.push_back(t);
+      t = t->left;
+    }
+    if (!node_vec.empty()) {
+      t = node_vec.back();
+      node_vec.pop_back();
+      t = t->right;
+    }
+  }
+}
+
+template <typename T>
+inline void BinarySearchTree<T>::inOrderNoRecur(BinaryNode *t) {
+  std::vector<BinaryNode *> node_vec;
+  while (!node_vec.empty() || t!=nullptr) {
+    while (t != nullptr) {
+      node_vec.push_back(t);
+      t = t->left;
+    }
+    if (!node_vec.empty()) {
+      t = node_vec.back();
+      std::cout << t->data << std::endl;
+      node_vec.pop_back();
+      t = t->right;
+    }
+  }
 }
