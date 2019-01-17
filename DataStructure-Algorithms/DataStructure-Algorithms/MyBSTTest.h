@@ -51,8 +51,8 @@ void bst_test() {
   /**
    *    6
    *  3   7
-   *   4    
-   *  
+   *   4
+   *
    */
   BinarySearchTree<int> bst_temp2(bst);
   //此处的remove_leaves的参数需要(BinarySearchTree *&t)
@@ -85,6 +85,22 @@ void bst_test() {
   std::cout << "\n测试printRange(low,up)" << std::endl;
   bst.printRange(3, 7);
 
+  //测试前中后递归遍历
+  std::cout << "\n测试PreOrder" << std::endl;
+  bst.preOrder();
+  std::cout << "\n测试InOrder" << std::endl;
+  bst.inOrder();
+  std::cout << "\n测试PostOrder" << std::endl;
+  bst.postOrder();
+
+  //测试前中后非递归遍历
+  std::cout << "\n测试PreOrderNoRecur" << std::endl;
+  bst.preOrderNoRecur();
+  std::cout << "\n测试InOrderNoRecur" << std::endl;
+  bst.inOrderNoRecur();
+  std::cout << "\n测试PostOrderNoRecur" << std::endl;
+  bst.postOrderNoRecur();
+
   //测试层序遍历
   std::cout << "\n测试levelOrder" << std::endl;
   bst.levelOrder();
@@ -96,5 +112,15 @@ void bst_test() {
   std::vector<int> ivec{5, 2, 3, 4, 1, 7};
   for (int i : ivec) lazy_bst.lazy_insert(i);
   lazy_bst.printTree();
-
+  //测试lazy_remove()
+  std::cout << "\n测试lazy_remove()" << std::endl;
+  //lazy_bst.lazy_remove(5);
+  //lazy_bst.lazy_remove(1);
+  //lazy_bst.lazy_findMax();
+  //lazy_bst.lazy_findMin();
+  for (int i = 0; i < ivec.size() / 2; i++) lazy_bst.lazy_remove(ivec[i]);
+  //lazy_bst.lazy_remove(2);
+  //lazy_bst.lazy_remove(3);
+  //lazy_bst.lazy_remove(4);
+  lazy_bst.printTree();
 }

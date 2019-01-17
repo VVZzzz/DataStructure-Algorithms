@@ -37,9 +37,9 @@ class BinarySearchTree {
   void levelOrder() const { return levelOrder(root); }
 
   //非递归前中后序
-  void preOrderNoRecur();
-  void inOrderNoRecur();
-  void postOrderNoRecur();
+  void preOrderNoRecur() { return preOrderNoRecur(root); }
+  void inOrderNoRecur() { return inOrderNoRecur(root); }
+  void postOrderNoRecur() { return postOrderNoRecur(root); }
 
   const BinarySearchTree &operator=(const BinarySearchTree &rhs);
 
@@ -79,7 +79,7 @@ class BinarySearchTree {
     else
       std::cout << node->data << std::endl;
   }
-  void lazy_findMax(const T &x) {
+  void lazy_findMax() {
     BinaryNode *node = lazy_findMax(root);
     if (node == nullptr)
       std::cout << "Tree is null." << std::endl;
@@ -136,18 +136,28 @@ class BinarySearchTree {
   BinaryNode *lazy_findMin(BinaryNode *t) const {
     if (t != nullptr) {
       BinaryNode *ltemp = lazy_findMin(t->left);
-      if (ltemp != nullptr && ltemp->isDeleted == false) return ltemp;
-      BinaryNode *rtemp = lazy_findMin(t->right);
-      if (rtemp != nullptr && rtemp->isDeleted == false) return rtemp;
-    }
+      if (ltemp == nullptr) {
+        if (t->isDeleted) {
+          return lazy_findMin(t->right);
+        } else
+          return t;
+      } else
+        return ltemp;
+    }  else
+      return nullptr;
   }
   BinaryNode *lazy_findMax(BinaryNode *t) const {
-    BinaryNode *ltemp = lazy_findMin(t->right);
-    if (ltemp != nullptr && ltemp->isDeleted == false) return ltemp;
-    BinaryNode *rtemp = lazy_findMin(t->left);
-    if (rtemp != nullptr && rtemp->isDeleted == false) return rtemp;
-    //没有找到
-    return nullptr;
+    if (t != nullptr) {
+      BinaryNode *rtemp = lazy_findMax(t->right);
+      if (rtemp == nullptr) {
+        if (t->isDeleted) {
+          return lazy_findMax(t->left);
+        } else
+          return t;
+      } else
+        return rtemp;
+    }  else
+      return nullptr;
   }
 
   // isBST版本1的工具函数
@@ -333,9 +343,9 @@ void BinarySearchTree<T>::lazy_insert(const T &x, BinaryNode *&t) {
     theSize++;
     t = new BinaryNode(x, nullptr, nullptr, false);
   } else if (t->data < x)
-    insert(x, t->right);
+    lazy_insert(x, t->right);
   else if (x < t->data)
-    insert(x, t->left);
+    lazy_insert(x, t->left);
   else {
     if (t->isDeleted)
       t->isDeleted = false;
@@ -394,7 +404,7 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t) {
   if (t == nullptr) {
     return;
   }
-  if (t->isDeleted) {
+  if (t->isDeleted == false) {
     lazy_dormall(t->left);
     lazy_dormall(t->right);
   } else {
@@ -402,15 +412,48 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t) {
       // t->data = findMin(t->right)->data;  //找到右子树的最左子节点
       // remove(t->data, t->right);  //接着递归删除这个右子树的最左子结点
       BinaryNode *temp = lazy_findMin(t->right);
+      BinaryNode *ltemp = lazy_findMax(t->left);
+      if (temp == nullptr && ltemp == nullptr) {
+        //说明t的子树都是要删除的，故直接清除
+        makeEmpty(t);
+      } else if (temp == nullptr && ltemp != nullptr) {
+        //如果右子树全为isDeleted,左子树不是,则清除右子树,当前结点值换成左子树的最大结点值
+        //并置这个最大结点为isDeleted,同时置这个当前结点为isDeleted=false
+        //再对t的左子树进行dormall();
+        makeEmpty(t->right);
+        t->data = ltemp->data;
+        t->isDeleted = false;
+        ltemp->isDeleted = true;
+        lazy_dormall(t->left);
+      } else if (temp != nullptr && ltemp == nullptr) {
+        makeEmpty(t->left);
+        t->data = temp->data;
+        t->isDeleted = false;
+        temp->isDeleted = true;
+        lazy_dormall(t->right);
+      } else {
+        //如果左右子树都不是全为isDeleted,则默认当前结点值换成右子树的最小结点值.
+        //再对两颗子树进行dormall();
+        t->data = temp->data;
+        t->isDeleted = false;
+        temp->isDeleted = true;
+        lazy_dormall(t->right);
+        lazy_dormall(t->left);
+      }
+
+      /*
       if (temp == nullptr) {
-        //说明t的右子树都是有删除标志的,删除所有即可.;
+        //说明t的右子树都是有删除标志的,删除t的右子树即可.;
         BinaryNode *delete_child = t->right;
         makeEmpty(delete_child);
+        
       } else {
         t->data = temp->data;
+        t->isDeleted = false;
         temp->isDeleted = true;
         lazy_dormall(t->right);
       }
+      */
     } else {
       BinaryNode *oldNode = t;
       t = (t->left != nullptr) ? t->left : t->right;
@@ -582,8 +625,8 @@ inline void BinarySearchTree<T>::preOrder(BinaryNode *t) {
     return;
   else
     std::cout << t->data << std::endl;
-  preOrder(t->right);
   preOrder(t->left);
+  preOrder(t->right);
 }
 
 template <typename T>
@@ -597,8 +640,8 @@ inline void BinarySearchTree<T>::inOrder(BinaryNode *t) {
 template <typename T>
 inline void BinarySearchTree<T>::postOrder(BinaryNode *t) {
   if (t == nullptr) return;
-  inOrder(t->left);
-  inOrder(t->right);
+  postOrder(t->left);
+  postOrder(t->right);
   std::cout << t->data << std::endl;
 }
 
@@ -621,7 +664,7 @@ inline void BinarySearchTree<T>::levelOrder(BinaryNode *t) const {
 template <typename T>
 inline void BinarySearchTree<T>::preOrderNoRecur(BinaryNode *t) {
   std::vector<BinaryNode *> node_vec;
-  while (!node_vec.empty() || t!=nullptr) {
+  while (!node_vec.empty() || t != nullptr) {
     while (t != nullptr) {
       std::cout << t->data << std::endl;
       node_vec.push_back(t);
@@ -638,7 +681,7 @@ inline void BinarySearchTree<T>::preOrderNoRecur(BinaryNode *t) {
 template <typename T>
 inline void BinarySearchTree<T>::inOrderNoRecur(BinaryNode *t) {
   std::vector<BinaryNode *> node_vec;
-  while (!node_vec.empty() || t!=nullptr) {
+  while (!node_vec.empty() || t != nullptr) {
     while (t != nullptr) {
       node_vec.push_back(t);
       t = t->left;
@@ -648,6 +691,30 @@ inline void BinarySearchTree<T>::inOrderNoRecur(BinaryNode *t) {
       std::cout << t->data << std::endl;
       node_vec.pop_back();
       t = t->right;
+    }
+  }
+}
+
+//非递归后序遍历 左->右->根,所以我们入栈时需要保持根,右child,lchild顺序。
+//在访问结点时,如果它的左右子节点都被访问过,才可以访问否则右
+//左子树入栈，直到一个结点是叶子结点，此时可以访问。
+template <typename T>
+inline void BinarySearchTree<T>::postOrderNoRecur(BinaryNode *t) {
+  if (t == nullptr) return;
+  std::vector<BinaryNode *> node_vec;
+  node_vec.push_back(t);
+  BinaryNode *curr = t;
+  BinaryNode *pre = nullptr;
+  while (!node_vec.empty()) {
+    curr = node_vec.back();
+    if ((curr->left == nullptr && curr->right == nullptr) ||
+        (pre != nullptr && (curr->left == pre || curr->right == pre))) {
+      std::cout << curr->data << std::endl;
+      node_vec.pop_back();
+      pre = curr;
+    } else {
+      if (curr->right != nullptr) node_vec.push_back(curr->right);
+      if (curr->left != nullptr) node_vec.push_back(curr->left);
     }
   }
 }
