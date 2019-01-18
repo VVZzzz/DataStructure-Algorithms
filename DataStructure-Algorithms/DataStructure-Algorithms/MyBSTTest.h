@@ -105,7 +105,7 @@ void bst_test() {
   std::cout << "\n≤‚ ‘levelOrder" << std::endl;
   bst.levelOrder();
 
-  //≤‚ ‘¿¡∂Ë∞Ê±æµƒinsert remove contains findMin findMax
+  //≤‚ ‘¿¡∂Ë∞Ê±æµƒinsert remove 
   //≤‚ ‘lazy_insert()
   std::cout << "\n≤‚ ‘lazy_insert()" << std::endl;
   BinarySearchTree<int> lazy_bst;
@@ -114,13 +114,16 @@ void bst_test() {
   lazy_bst.printTree();
   //≤‚ ‘lazy_remove()
   std::cout << "\n≤‚ ‘lazy_remove()" << std::endl;
-  //lazy_bst.lazy_remove(5);
-  //lazy_bst.lazy_remove(1);
-  //lazy_bst.lazy_findMax();
-  //lazy_bst.lazy_findMin();
   for (int i = 0; i < ivec.size() / 2; i++) lazy_bst.lazy_remove(ivec[i]);
-  //lazy_bst.lazy_remove(2);
-  //lazy_bst.lazy_remove(3);
-  //lazy_bst.lazy_remove(4);
   lazy_bst.printTree();
+
+  //≤‚ ‘≈–∂œBST∫Ø ˝,isBST_1.2.3.4
+  std::cout << "\n≤‚ ‘≈–∂œBST1" << std::endl;
+  std::cout << std::boolalpha << bst.isBST_1() << std::noboolalpha << std::endl;
+  std::cout << "\n≤‚ ‘≈–∂œBST2" << std::endl;
+  std::cout << std::boolalpha << bst.isBST_2() << std::noboolalpha << std::endl;
+  std::cout << "\n≤‚ ‘≈–∂œBST3" << std::endl;
+  std::cout << std::boolalpha << bst.isBST_3() << std::noboolalpha << std::endl;
+  std::cout << "\n≤‚ ‘≈–∂œBST4" << std::endl;
+  std::cout << std::boolalpha << bst.isBST_4() << std::noboolalpha << std::endl;
 }

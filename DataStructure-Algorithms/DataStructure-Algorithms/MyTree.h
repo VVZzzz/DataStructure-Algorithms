@@ -51,10 +51,10 @@ class BinarySearchTree {
   int countFullNodes() const { return countFullNodes(root); }
 
   //检查是否为BST
-  bool isBST_1(BinaryNode *t) const;
-  bool isBST_2(BinaryNode *t) const;
-  bool isBST_3(BinaryNode *t) const;
-  bool isBST_4(BinaryNode *t) const;
+  bool isBST_1() const;
+  bool isBST_2() const;
+  bool isBST_3() const;
+  bool isBST_4() const;
 
   // 4.33 递归删除叶子结点
   void remove_leaves() { return remove_leaves(root); }
@@ -440,20 +440,6 @@ void BinarySearchTree<T>::lazy_dormall(BinaryNode *&t) {
         lazy_dormall(t->right);
         lazy_dormall(t->left);
       }
-
-      /*
-      if (temp == nullptr) {
-        //说明t的右子树都是有删除标志的,删除t的右子树即可.;
-        BinaryNode *delete_child = t->right;
-        makeEmpty(delete_child);
-        
-      } else {
-        t->data = temp->data;
-        t->isDeleted = false;
-        temp->isDeleted = true;
-        lazy_dormall(t->right);
-      }
-      */
     } else {
       BinaryNode *oldNode = t;
       t = (t->left != nullptr) ? t->left : t->right;
@@ -468,8 +454,8 @@ inline bool BinarySearchTree<T>::isBSTUtil_1(BinaryNode *t, long long int min,
                                              long long int max) const {
   if (t == nullptr) return true;
   if (t->data <= min || t->data >= max) return false;
-  return isBSTUtil_1(root->left, min, t->data) &&
-         isBSTUtil_1(root->right, t->data, max);
+  return isBSTUtil_1(t->left, min, t->data) &&
+         isBSTUtil_1(t->right, t->data, max);
 }
 
 template <typename T>
@@ -492,7 +478,8 @@ inline bool BinarySearchTree<T>::isBSTUtil_3(BinaryNode *t,
   if (prev != nullptr && prev->data >= t->data) return false;
   prev = t;
   //检查右子树
-  return isBSTUtil_3(t->right, prev);
+  if (!isBSTUtil_3(t->right, prev)) return false;
+  return true;
 }
 
 template <typename T>
@@ -548,25 +535,28 @@ inline bool BinarySearchTree<T>::isBST(BinaryNode * t) const {
 // LONG_MIN,考虑[INT_MIN]和[INT_MIN,INT_MIN]树
 //此方法由于使用特定类型的最小值和最大值,且有可能溢出,初始状态下要使用更高一级的类型。不具有广泛性
 template <typename T>
-bool BinarySearchTree<T>::isBST_1(BinaryNode *t) const {
-  return isBSTUtil_1(t, LONG_MIN, LONG_MAX);
+bool BinarySearchTree<T>::isBST_1() const {
+  return isBSTUtil_1(root, LONG_MIN, LONG_MAX);
 }
 
 //为解决上述问题使用这个函数,将LONG_MIN,LONG_MAX这些最小值最大值换成nullptr表示
 template <typename T>
-inline bool BinarySearchTree<T>::isBST_2(BinaryNode *t) const {
-  return isBSTUtil_2(t, nullptr, nullptr);
+inline bool BinarySearchTree<T>::isBST_2() const {
+  return isBSTUtil_2(root, nullptr, nullptr);
 }
 
 //递归中序遍历,需要一个pre前置指针
+//基本思想是对每一个结点,其值都要大于等于左child,小于右child.
 template <typename T>
-inline bool BinarySearchTree<T>::isBST_3(BinaryNode *t) const {
-  BinaryNode *&pre = nullptr;
+inline bool BinarySearchTree<T>::isBST_3() const {
+  BinaryNode *pre = nullptr;
+  return isBSTUtil_3(root, pre);
 }
 
 //非递归中序遍历,类似非递归删除.借用一个栈
 template <typename T>
-inline bool BinarySearchTree<T>::isBST_4(BinaryNode *t) const {
+inline bool BinarySearchTree<T>::isBST_4() const {
+  BinaryNode *t = root;
   if (t == nullptr) return true;
   std::stack<BinaryNode *> BSTNode_stack;
   BinaryNode *prev = nullptr;
@@ -577,7 +567,8 @@ inline bool BinarySearchTree<T>::isBST_4(BinaryNode *t) const {
       t = t->left;
     }
     //判断当前结点
-    t = BSTNode_stack.pop();
+    t = BSTNode_stack.top();
+    BSTNode_stack.pop();
     if (prev != nullptr && prev->data >= t->data) return false;
     //右子树
     prev = t;

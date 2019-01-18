@@ -1,4 +1,3 @@
-#define TEST_VECTOR
 #include <iostream>
 #include "MyVector.h"
 #include "MyVectorTest.h"
