@@ -9,11 +9,12 @@ class AVLTree {
  public:
   AVLTree() : root(nullptr) {}
   void insert(const T &x) { insert(x, root); }
-  void remove(const T &x, AvlNode *t);
+  // remove和BST类似,但要进行平衡调整
+  void remove(const T &x) { remove(x, root); }
   int getHeight() { return getHeight(root); }
 
   //非递归的insert,借助栈.原理相同
-  void insert_iteration(const T &x, AvlNode *t);
+  void insert_iteration(const T &x) { insert_iteration(x, root); }
   //判断是否满足平衡条件
   bool isBalanced();
 
@@ -37,6 +38,8 @@ class AVLTree {
 
   int getHeight(AvlNode *&t) const { return t == nullptr ? -1 : t->height; }
   void insert(const T &x, AvlNode *&t);
+  void remove(const T &x, AvlNode *&t);
+  void insert_iteration(const T &x, AvlNode *t);
 
   //左单旋转
   void singleRotateWithLeft(AvlNode *&t);
@@ -48,6 +51,11 @@ class AVLTree {
   void doubleRotateWithRight(AvlNode *&t);
   // LeetCode110实现的得到高度工具函数(使用DFS),如果不满足平衡条件返回的是-1
   int getWholeHeight(AvlNode *t);
+
+  //右子树高时的调整函数
+  void rightBalance(AvlNode *&t);
+  //左子树高时的调整函数
+  void leftBalance(AvlNode *&t);
 
   AvlNode *generate_min_H_util(int h, T &lastVal) {
     AvlNode *t = nullptr;
@@ -77,21 +85,28 @@ void AVLTree<T>::insert(const T &x, AvlNode *&t) {
   if (t == nullptr)
     t = new AvlNode(x, nullptr, nullptr);
   else if (x < t->data) {
-    insert(x,t->left);
+    //此时插入到左子树上
+    insert(x, t->left);
     if (getHeight(t->left) - getHeight(t->right) == 2)
       if (x < t->left->data)
+        //此时插入到左子树的左子节点,左单旋
         singleRotateWithLeft(t);
       else
+        //此时插入到左子树的右子节点,左双旋
         doubleRotateWithLeft(t);
   } else if (x > t->data) {
-    insert(x,t->right);
+    //此时插入到右子树上
+    insert(x, t->right);
     if (getHeight(t->right) - getHeight(t->left) == 2)
       if (x > t->right->data)
+        //此时插入到右子树的右子节点,右单旋
         singleRotateWithRight(t);
       else
+        //此时插入到右子树的左子节点,右双旋
         doubleRotateWithRight(t);
   } else
     ;  // do noting,已有该元素
+  //重新修改该树的高度
   t->height = std::max(getHeight(t->right), getHeight(t->left)) + 1;
 }
 
@@ -117,6 +132,7 @@ void AVLTree<T>::doubleRotateWithLeft(AvlNode *&t) {
   //	t->height = max(getHeight(t->left), getHeight(t->right)) + 1;
   //	r->height = max(l->height, t->height) + 1;
   //	t = r;
+  //    做左双旋,实际上是两次单旋,先对t->left做右单旋,再对t做左单旋.
   singleRotateWithRight(t->left);
   singleRotateWithLeft(t);
 }
@@ -133,6 +149,7 @@ void AVLTree<T>::singleRotateWithRight(AvlNode *&t) {
 
 template <typename T>
 void AVLTree<T>::doubleRotateWithRight(AvlNode *&t) {
+  //做右双旋,实际上是两次单旋,先对t->right做左单旋,再对t做右单旋.
   singleRotateWithLeft(t->right);
   singleRotateWithRight(t);
 }
@@ -146,6 +163,28 @@ int AVLTree<T>::getWholeHeight(AvlNode *t) {
   if (rightheight == -1) return -1;
   if (abs(leftheight - rightheight) > 1) return -1;
   return max(leftheight, rightheight) + 1;
+}
+
+template <typename T>
+void AVLTree<T>::rightBalance(AvlNode *&t) {
+  auto temp = t->right;
+  if (getHeight(temp->right) - getHeight(temp->left) == 1)
+    //右子树的右子节点
+    singleRotateWithRight(t);
+  else
+    //右子树的左子节点
+    doubleRotateWithRight(t);
+}
+
+template <typename T>
+void AVLTree<T>::leftBalance(AvlNode *&t) {
+  auto temp = t->left;
+  if (getHeight(temp->left) - getHeight(temp->right) == 1)
+    //左子树的左子节点
+    singleRotateWithLeft(t);
+  else
+    //右子树的左子节点
+    doubleRotateWithLeft(t);
 }
 
 /*
@@ -214,14 +253,15 @@ void AVLTree<T>::insert_iteration(const T &x, AvlNode *t) {
       ;  //已找到
   }
 
-  while (1) {
-    AvlNode *child = nodeptr_stack.top();
     if (nodeptr_stack.empty()) return;
+    AvlNode *child = nodeptr_stack.top();
     nodeptr_stack.pop();
+    if (nodeptr_stack.empty()) return;
     AvlNode *parent = nodeptr_stack.top();
+    /*
     if (parent->data < child->data) {
       parent->right = child;
-      if (getHeight(parent->right) - getHeight((parent->left) == 2)) {
+      if (getHeight(parent->right) - getHeight(parent->left) == 2) {
         if (x > t->right->data)
           singleRotateWithRight(t);
         else
@@ -229,32 +269,69 @@ void AVLTree<T>::insert_iteration(const T &x, AvlNode *t) {
       }
     } else if (parent->data > child->data) {
       parent->left = child;
-      if (getHeight(parent->left) - getHeight((parent->right) == 2)) {
+      if (getHeight(parent->left) - getHeight(parent->right) == 2) {
         if (x < t->left->data)
           singleRotateWithLeft(t);
         else
           doubleRotateWithLeft(t);
       }
     }
-    nodeptr_stack.push(parent);
-    parent->height = max(getHeight(parent->left), getHeight(parent->right)) + 1;
-  }
+	*/
+
+	if (parent->data < child->data)
+      parent->right = child;
+    else
+      parent->left = child;
+    
+    parent->height = std::max(getHeight(parent->left), getHeight(parent->right)) + 1;
+    if (!nodeptr_stack.empty()) {
+      auto pparent = nodeptr_stack.top();
+      nodeptr_stack.pop();
+      if (getHeight(pparent->left) - getHeight(pparent->right) == 2)
+        leftBalance(pparent);
+      else if (getHeight(pparent->left) - getHeight(pparent->right) == -2)
+        rightBalance(pparent);
+    }
+
 }
 
 template <typename T>
-void AVLTree<T>::remove(const T &x, AvlNode *t) {
+void AVLTree<T>::remove(const T &x, AvlNode *&t) {
   if (t == nullptr)
     return;
   else if (x < t->data) {
-    remove(t->left);
+    remove(x, t->left);
+    //右子树更高,调整
     if (getHeight(t->right) - getHeight(t->left) == 2) {
+      rightBalance(t);
     }
   } else if (x > t->data) {
-    remove(t->right);
+    remove(x, t->right);
+    //左子树更高,调整
+    if (getHeight(t->left) - getHeight(t->right) == 2) {
+      leftBalance(t);
+    }
   } else {
-    if (t->left == nullptr && t->right == nullptr) {
-      delete t;
+    if (t->left == nullptr) {
+      auto temp = t;
+      t = t->right;
+      delete temp;
+    } else if (t->right == nullptr) {
+      auto temp = t;
+      t = t->left;
+      delete temp;
+    } else {
+      //左右子树都不为空,删除策略为找左子树的最右节点或者右子树的最左节点代替。
+      //即BST树的删除策略, 这里选后者。
+      auto temp = t->right;
+      while (temp->left != nullptr) {
+        temp = temp->left;
+      }
+      t->data = temp->data;
+      remove(x, temp);  //递归删除此节点
     }
   }
-  t->height = max(getHeight(t->left), getHeight(t->right)) + 1;
+  //更新节点高度
+  if (t != nullptr)
+    t->height = std::max(getHeight(t->left), getHeight(t->right)) + 1;
 }
