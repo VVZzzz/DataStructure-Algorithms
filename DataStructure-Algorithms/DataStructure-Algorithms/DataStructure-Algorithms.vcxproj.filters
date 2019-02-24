@@ -99,6 +99,9 @@
     <ClInclude Include="MyBSTTest.h">
       <Filter>头文件\Test</Filter>
     </ClInclude>
+    <ClInclude Include="MyAVLTest.h">
+      <Filter>头文件\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

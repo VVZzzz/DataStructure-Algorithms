@@ -4,8 +4,10 @@
 #include "MyList.h"
 #include "MyListTest.h"
 #include "MyBSTTest.h"
+#include "MyAVL.h"
+#include "MyAVLTest.h"
 int main() {
-  bst_test();
+  avl_test();
   system("pause");
   return 0;
 }
