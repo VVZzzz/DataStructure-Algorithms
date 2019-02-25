@@ -44,5 +44,16 @@ void avl_test() {
     std::cout << "\n\n树的高度为: " << avl_tree1.getHeight() << std::endl;
     avl_tree1.print_tree();
   }
-  
+
+  //测试isBalanced()函数
+  std::cout << "\n测试isBalanced()函数" << std::endl;
+  std::cout << "是否为AVL树: " << std::boolalpha << avl_tree1.isBalanced()
+            << std::noboolalpha << std::endl;
+
+  //测试generate_min_H()函数
+  std::cout << "\n测试generate_min_H()函数" << std::endl;
+  for (int i = 1; i < 10; i++) {
+    std::cout << "\n\n生成高度为" << i << "的树: \n" << std::endl;
+    avl_tree1.generate_min_H(i);
+  }
 }

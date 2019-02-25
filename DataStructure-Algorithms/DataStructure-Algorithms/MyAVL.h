@@ -8,6 +8,8 @@ class AVLTree {
 
  public:
   AVLTree() : root(nullptr) {}
+  AVLTree(const AVLTree &rhs) { root = clone(rhs.root); }
+  ~AVLTree() { makeEmpty(); }
   void insert(const T &x) { insert(x, root); }
   // remove和BST类似,但要进行平衡调整
   void remove(const T &x) { remove(x, root); }
@@ -24,6 +26,8 @@ class AVLTree {
   // print_tree测试用
   void print_tree() const;
 
+  void makeEmpty() { return makeEmpty(root); }
+
  private:
   struct AvlNode {
     T data;
@@ -39,7 +43,7 @@ class AVLTree {
   int getHeight(AvlNode *&t) const { return t == nullptr ? -1 : t->height; }
   void insert(const T &x, AvlNode *&t);
   void remove(const T &x, AvlNode *&t);
-  void insert_iteration(const T &x, AvlNode *t);
+  void insert_iteration(const T &x, AvlNode *&t);
 
   //左单旋转
   void singleRotateWithLeft(AvlNode *&t);
@@ -57,25 +61,40 @@ class AVLTree {
   //左子树高时的调整函数
   void leftBalance(AvlNode *&t);
 
-  AvlNode *generate_min_H_util(int h, T &lastVal) {
+  AvlNode *generate_min_H_util(int h, T lastVal) {
     AvlNode *t = nullptr;
-    if (h >= 0) {
+    if (h >= 2) {
       t = new AvlNode();
       t->left = generate_min_H_util(h - 1, lastVal);
       t->data = ++lastVal;
       t->right = generate_min_H_util(h - 2, lastVal);
       //若不考虑保存结点的高度信息,此句可不要
-      t->height = max(getHeight(t->left), getHeight(t->right)) + 1;
+      t->height = std::max(getHeight(t->left), getHeight(t->right)) + 1;
+      return t;
     }
-    return t;
+    // return t;
     if (h == 0) {
       return new AvlNode(T(), nullptr, nullptr);
     }
     if (h == 1) {
-      return new AvlNode(T(), nullptr, generate_min_H_util(0));
+      return new AvlNode(T(), nullptr, generate_min_H_util(0, lastVal));
     }
-    return new AvlNode(T(), generate_min_H_util(h - 1),
-                       generate_min_H_util(h - 2));
+    return new AvlNode(T(), generate_min_H_util(h - 1, lastVal),
+                       generate_min_H_util(h - 2, lastVal));
+  }
+
+  void makeEmpty(AvlNode *&t) {
+    if (t != nullptr) {
+      makeEmpty(t->left);
+      makeEmpty(t->right);
+      delete t;
+    }
+    t = nullptr;
+  }
+
+  AvlNode *clone(AvlNode *t) const {
+    if (t == nullptr) return nullptr;
+    return AvlNode(t->data, clone(t->left), clone(t->right), t->height);
   }
 };
 
@@ -162,7 +181,7 @@ int AVLTree<T>::getWholeHeight(AvlNode *t) {
   int rightheight = getWholeHeight(t->right);
   if (rightheight == -1) return -1;
   if (abs(leftheight - rightheight) > 1) return -1;
-  return max(leftheight, rightheight) + 1;
+  return std::max(leftheight, rightheight) + 1;
 }
 
 template <typename T>
@@ -199,9 +218,12 @@ bool AVLTree<T>::isBalanced() {
 }
 
 template <typename T>
-inline void AVLTree<T>::generate_min_H(int h) {
-  T lastVal();
-  return generate_min_H_util(h, lastVal);
+void AVLTree<T>::generate_min_H(int h) {
+  T lastVal = T();
+  auto temp = root;
+  root = generate_min_H_util(h, lastVal);
+  print_tree();
+  root = temp;
 }
 
 template <typename T>
@@ -236,63 +258,75 @@ void AVLTree<T>::print_tree() const {
 }
 
 template <typename T>
-void AVLTree<T>::insert_iteration(const T &x, AvlNode *t) {
+void AVLTree<T>::insert_iteration(const T &x, AvlNode *&t) {
   std::stack<AvlNode *> nodeptr_stack;
+  //第一个循环是找到查找路径,并存放在栈中
+  auto p = t;
   while (1) {
-    if (t == nullptr) {
-      t = new AvlNode(x, nullptr, nullptr);
-      nodeptr_stack.push(t);
+    if (p == nullptr) {
+      p = new AvlNode(x, nullptr, nullptr);
+      nodeptr_stack.push(p);
+      if (t == nullptr) t = p;  //为处理当根节点为nullptr时的情况
       break;
-    } else if (x < t->data) {
-      nodeptr_stack.push(t);
-      t = t->left;
-    } else if (x > t->data) {
-      nodeptr_stack.push(t);
-      t = t->right;
+    } else if (x < p->data) {
+      nodeptr_stack.push(p);
+      p = p->left;
+    } else if (x > p->data) {
+      nodeptr_stack.push(p);
+      p = p->right;
     } else
       ;  //已找到
   }
 
+  //此循环进行插入并进行平衡调整
+  while (1) {
     if (nodeptr_stack.empty()) return;
     AvlNode *child = nodeptr_stack.top();
     nodeptr_stack.pop();
-    if (nodeptr_stack.empty()) return;
-    AvlNode *parent = nodeptr_stack.top();
-    /*
-    if (parent->data < child->data) {
-      parent->right = child;
-      if (getHeight(parent->right) - getHeight(parent->left) == 2) {
-        if (x > t->right->data)
-          singleRotateWithRight(t);
-        else
-          doubleRotateWithRight(t);
-      }
-    } else if (parent->data > child->data) {
-      parent->left = child;
-      if (getHeight(parent->left) - getHeight(parent->right) == 2) {
-        if (x < t->left->data)
-          singleRotateWithLeft(t);
-        else
-          doubleRotateWithLeft(t);
-      }
+    if (nodeptr_stack.empty()) {
+      t = child;
+      return;
     }
-	*/
+    AvlNode *parent = nodeptr_stack.top();
+    nodeptr_stack.pop();
 
-	if (parent->data < child->data)
+    if (parent->data < child->data)
       parent->right = child;
     else
       parent->left = child;
-    
-    parent->height = std::max(getHeight(parent->left), getHeight(parent->right)) + 1;
-    if (!nodeptr_stack.empty()) {
-      auto pparent = nodeptr_stack.top();
-      nodeptr_stack.pop();
-      if (getHeight(pparent->left) - getHeight(pparent->right) == 2)
-        leftBalance(pparent);
-      else if (getHeight(pparent->left) - getHeight(pparent->right) == -2)
-        rightBalance(pparent);
-    }
 
+    if (getHeight(parent->left) - getHeight(parent->right) == 2)
+      leftBalance(parent);
+    else if (getHeight(parent->left) - getHeight(parent->right) == -2)
+      rightBalance(parent);
+
+    parent->height =
+        std::max(getHeight(parent->left), getHeight(parent->right)) + 1;
+    nodeptr_stack.push(parent);
+  }
+  /*
+  if (nodeptr_stack.empty()) return;
+  AvlNode *child = nodeptr_stack.top();
+  nodeptr_stack.pop();
+  if (nodeptr_stack.empty()) return;
+  AvlNode *parent = nodeptr_stack.top();
+
+  if (parent->data < child->data)
+    parent->right = child;
+  else
+    parent->left = child;
+
+  parent->height =
+      std::max(getHeight(parent->left), getHeight(parent->right)) + 1;
+  if (!nodeptr_stack.empty()) {
+    auto pparent = nodeptr_stack.top();
+    nodeptr_stack.pop();
+    if (getHeight(pparent->left) - getHeight(pparent->right) == 2)
+      leftBalance(pparent);
+    else if (getHeight(pparent->left) - getHeight(pparent->right) == -2)
+      rightBalance(pparent);
+  }
+  */
 }
 
 template <typename T>

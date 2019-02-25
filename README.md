@@ -42,3 +42,12 @@ Learn DataStructrue-Algorithms.
    - 层序遍历
    - 懒惰操作:lazy_insert(),lazy_remove(),lazy_findMin...
    - 判断是否为BST函数
+4. 平衡查找树AVL
+   - 构造,拷贝,析构函数
+   - 插入节点 insert(data)
+   - 单旋,双旋singleRotate doubleRotate()
+   - 右(左)子树过高调整函数rightBalance()
+   - 删除节点 remove(data)
+   - 得到高度 getHeight()
+   - 判断是否平衡isBalanced()
+   - 生成最小高度H的AVL树函数 generate_min_H()
