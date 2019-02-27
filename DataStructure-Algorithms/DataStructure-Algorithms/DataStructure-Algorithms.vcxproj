@@ -35,6 +35,7 @@
     <ClInclude Include="MyGraph.h" />
     <ClInclude Include="MyHashProbing.h" />
     <ClInclude Include="MyHashSeparateChain.h" />
+    <ClInclude Include="MyHashTest.h" />
     <ClInclude Include="MyLeftisHeap.h" />
     <ClInclude Include="MyList.h" />
     <ClInclude Include="MyListTest.h" />

@@ -6,8 +6,9 @@
 #include "MyBSTTest.h"
 #include "MyAVL.h"
 #include "MyAVLTest.h"
+#include "MyHashTest.h"
 int main() {
-  avl_test();
+  hash_test();
   system("pause");
   return 0;
 }
