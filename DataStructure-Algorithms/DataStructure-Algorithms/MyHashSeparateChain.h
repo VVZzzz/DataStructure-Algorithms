@@ -17,6 +17,7 @@ class MyHashSeparate {
     theLists.resize(nextPrime(sz));
     makeEmpty();
   }  //哈希表的大小最好是素数,利于分布均匀.
+  ~MyHashSeparate() { makeEmpty(); }
   bool contains(const HashedObj &x) const;
   void makeEmpty();
   bool insert(const HashedObj &x);
@@ -38,8 +39,15 @@ class MyHashSeparate {
 template <typename HashedObj>
 bool MyHashSeparate<HashedObj>::contains(const HashedObj &x) const {
   int temp = myhash(x);
-  return std::find(theLists[temp].begin(), theLists[temp].end(), x) !=
-         theLists[temp].end();
+  if (std::find(theLists[temp].begin(), theLists[temp].end(), x) !=
+      theLists[temp].end()) {
+    std::cout << "find the element " << x << "in theLists[" << temp << "]"
+              << std::endl;
+    return true;
+  } else {
+    std::cout << "the element " << x << " not found!" << std::endl;
+    return false;
+  }
 }
 
 template <typename HashedObj>
@@ -69,7 +77,10 @@ bool MyHashSeparate<HashedObj>::remove(const HashedObj &x) {
   std::list<HashedObj> &whichlist = theLists[myhash(x)];
   std::list<HashedObj>::iterator itr =
       std::find(whichlist.begin(), whichlist.end(), x);
-  if (itr == whichlist.end()) return false;
+  if (itr == whichlist.end()) {
+    std::cout << x << " not found!" << std::endl;
+    return false;
+  }
   whichlist.erase(itr);
   --currentSize;
   return true;

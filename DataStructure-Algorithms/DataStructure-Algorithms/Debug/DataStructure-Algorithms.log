@@ -13,20 +13,20 @@ e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\da
               Object=int
           ]
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myvectortest.h(10): note: 参见对正在编译的 类 模板 实例化 "MyVector<int>" 的引用
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(47): warning C4018: “<”: 有符号/无符号不匹配
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(46): note: 编译 类 模板 成员函数 "void MyHashSeparate<std::string>::makeEmpty(void)" 时
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(18): note: 参见对正在编译的函数 模板 实例化“void MyHashSeparate<std::string>::makeEmpty(void)”的引用
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashtest.h(29): note: 参见对正在编译的 类 模板 实例化 "MyHashSeparate<std::string>" 的引用
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(61): warning C4018: “>”: 有符号/无符号不匹配
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(54): note: 编译 类 模板 成员函数 "bool MyHashSeparate<std::string>::insert(const HashedObj &)" 时
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(55): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(54): note: 编译 类 模板 成员函数 "void MyHashSeparate<int>::makeEmpty(void)" 时
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(20): note: 参见对正在编译的函数 模板 实例化“void MyHashSeparate<int>::makeEmpty(void)”的引用
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashtest.h(32): note: 参见对正在编译的 类 模板 实例化 "MyHashSeparate<int>" 的引用
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(69): warning C4018: “>”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashseparatechain.h(62): note: 编译 类 模板 成员函数 "bool MyHashSeparate<int>::insert(const HashedObj &)" 时
           with
           [
-              HashedObj=std::string
+              HashedObj=int
           ]
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashtest.h(35): note: 参见对正在编译的函数 模板 实例化“bool MyHashSeparate<std::string>::insert(const HashedObj &)”的引用
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashtest.h(52): note: 参见对正在编译的函数 模板 实例化“bool MyHashSeparate<int>::insert(const HashedObj &)”的引用
           with
           [
-              HashedObj=std::string
+              HashedObj=int
           ]
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mytree.h(214): warning C4172: 返回局部变量或临时变量的地址
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mytree.h(202): warning C4172: 返回局部变量或临时变量的地址
