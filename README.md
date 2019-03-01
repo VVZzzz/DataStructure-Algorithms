@@ -13,7 +13,7 @@ Learn DataStructrue-Algorithms.
 - [第八章](https://github.com/VVZzzz/DataStructure-Algorithms/blob/master/ch4_test.md)
 - [第九章](https://github.com/VVZzzz/DataStructure-Algorithms/blob/master/ch4_test.md)
 
-## 实现数据结构类
+## 已实现数据结构类
 1. 数组MyVector
    - 构造,拷贝,析构
    - operator [ ] = 
@@ -51,3 +51,14 @@ Learn DataStructrue-Algorithms.
    - 得到高度 getHeight()
    - 判断是否平衡isBalanced()
    - 生成最小高度H的AVL树函数 generate_min_H()
+5. Hash散列表
+   - Hash分离链接法散列表
+   - 线性探测解决冲突
+   - 平方探测解决冲突
+   - 双散列法解决冲突
+   - 构造,析构,拷贝
+   - insert(x)
+   - remove(x)
+   - makeEmpty()
+   - rehash()
+   - contains(x)
