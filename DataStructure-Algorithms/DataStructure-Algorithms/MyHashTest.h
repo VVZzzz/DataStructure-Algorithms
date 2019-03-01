@@ -1,10 +1,13 @@
 #pragma once
 //此文件测试Hash散列表类,数据为Employee类.
+#define HASH_PROBING_TEST
+#define SQUARE_DETECT_HASH
 #include <time.h>
 #include <ostream>
 #include <random>
 #include <string>
 #include <vector>
+#include "MyHashProbing.h"
 #include "MyHashSeparateChain.h"
 class Employee {
   friend std::ostream& operator<<(std::ostream& os, const Employee& rhs);
@@ -25,11 +28,20 @@ std::ostream& operator<<(std::ostream& os, const Employee& rhs) {
   return os;
 }
 
-void hash_seperatechain_test() {
+void hash_test() {
   //测试构造函数
+#ifdef HASH_SEPERATE_CHAIN_TEST
   std::cout << "\n测试MyHashSeperate默认构造函数" << std::endl;
-  // MyHashSeparate<std::string> str_hash;
   MyHashSeparate<int> int_hash;
+  // MyHashSeparate<std::string> str_hash;
+#endif
+#ifdef HASH_PROBING_TEST
+  std::cout << "\n测试MyProbingHash默认构造函数" << std::endl;
+  MyProbingHash<int> int_hash;
+#else
+  std::cout << "\n测试MyHashSeperate默认构造函数" << std::endl;
+  MyHashSeparate<int> int_hash;
+#endif
   // str_hash.printInfo();
   int_hash.printInfo();
 

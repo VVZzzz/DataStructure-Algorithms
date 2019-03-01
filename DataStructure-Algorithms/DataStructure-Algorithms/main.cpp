@@ -8,7 +8,7 @@
 #include "MyAVLTest.h"
 #include "MyHashTest.h"
 int main() {
-  hash_seperatechain_test();
+  hash_test();
   system("pause");
   return 0;
 }

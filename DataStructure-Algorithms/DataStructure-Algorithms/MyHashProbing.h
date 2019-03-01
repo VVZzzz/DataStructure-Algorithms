@@ -35,6 +35,7 @@ class MyProbingHash {
 
   int getTableSize() const { return theLists.size(); }
   int getElementSize() const { return currentSize; }
+  void printInfo() const;
 
  private:
   struct HashEntry {
@@ -63,19 +64,22 @@ class MyProbingHash {
 };
 
 template <typename HashedObj>
-inline bool MyProbingHash<HashedObj>::contains(const HashedObj &x) const {
-  return isActive(findPos(x));
+bool MyProbingHash<HashedObj>::contains(const HashedObj &x) const {
+  int pos = findPos(x);
+  std::cout << "数据 " << x << "所在位置为 " << pos << " 状态是否为ACTIVE "
+            << std::endl;
+  return isActive(pos);
 }
 
 template <typename HashedObj>
-inline void MyProbingHash<HashedObj>::makeEmpty() {
+void MyProbingHash<HashedObj>::makeEmpty() {
   for (int i = 0; i < theLists.size(); i++) {
     theLists[i].info = EMPTY;
   }
 }
 
 template <typename HashedObj>
-inline bool MyProbingHash<HashedObj>::insert(const HashedObj &x) {
+bool MyProbingHash<HashedObj>::insert(const HashedObj &x) {
   int currpos = findPos(x);
   if (isActive(currpos)) return false;  //已经存在
   theLists[currpos] = HashEntry(x, ACTIVE);
@@ -85,7 +89,7 @@ inline bool MyProbingHash<HashedObj>::insert(const HashedObj &x) {
 }
 
 template <typename HashedObj>
-inline bool MyProbingHash<HashedObj>::remove(const HashedObj &x) {
+bool MyProbingHash<HashedObj>::remove(const HashedObj &x) {
   int currpos = findPos(x);
   if (!isActive(currpos)) return false;
   theLists[currpos].info = DELETED;
@@ -93,32 +97,68 @@ inline bool MyProbingHash<HashedObj>::remove(const HashedObj &x) {
 }
 
 template <typename HashedObj>
-inline bool MyProbingHash<HashedObj>::isEmpty() const {
+bool MyProbingHash<HashedObj>::isEmpty() const {
   for (auto &c : theLists)
     if (c.info == ACTIVE) return false;
   return true;
 }
 
 template <typename HashedObj>
-inline bool MyProbingHash<HashedObj>::isActive(int currentPos) const {
+void MyProbingHash<HashedObj>::printInfo() const {
+  if (theLists.empty()) {
+    std::cout << "当前散列表为空" << std::endl;
+    return;
+  }
+  std::cout << "散列表大小为: " << theLists.size()
+            << " 已填入元素数为: " << currentSize << std::endl;
+  std::string state;
+  for (int i = 0; i < theLists.size(); i++) {
+    switch (theLists[i].info) {
+      case ACTIVE:
+        state = "ACTIVE";
+        break;
+      case EMPTY:
+        state = "EMPTY";
+        break;
+      case DELETED:
+        state = "DELETED";
+        break;
+      default:
+        break;
+    }
+    std::cout << "散列表位置 " << i << " 状态为 " << state << " 数据为 "
+              << theLists[i].data << std::endl;
+  }
+}
+
+template <typename HashedObj>
+bool MyProbingHash<HashedObj>::isActive(int currentPos) const {
   return theLists[currentPos].info == ACTIVE;
 }
 
 //若为线性探测(LINEAR_DETEC_HASH),则f(i)=i,hi(x)=(hash(x)+i)%TableSize
 //查找pos时,进行+1即可
+
 //若为平方探测(SQUARE_DETEC_HASH),则f(i)=i,hi(x)=(hash(x)+i^2j)%TableSize
 //计算f(i)=f(i-1)+2i-1,可避免做乘法运算.即+1 +3 +5......
+
+//若为双散列,则fi=hash2(x),即用另一个散列函数. hi(x)=(hash(x)+fi)%TableSize
 //返回那些为EMPTY和data==x的结点
 template <typename HashedObj>
-inline int MyProbingHash<HashedObj>::findPos(const HashedObj &x) const {
+int MyProbingHash<HashedObj>::findPos(const HashedObj &x) const {
   int offset = 1;
+  int double_hash_i = 1;
   int currpos = myhash(x);
   while (theLists[currpos].info != EMPTY && theLists[currpos].data != x) {
-    currpos += offset;
 #ifdef SQUARE_DETECT_HASH
+    currpos += offset;
     offset += 2;
-#elifdef LINEAR_DETECT_HASH
+#elif define LINEAR_DETECT_HASH
+    currpos += offset;
     offset += 0;
+#elif define DOUBLE_HASH_HASH
+    currpos += double_hash_i * hash2(x);
+    double_hash_i++;
 #endif
     if (currpos >= theLists.size()) {
       currpos -= theLists.size();
@@ -129,17 +169,18 @@ inline int MyProbingHash<HashedObj>::findPos(const HashedObj &x) const {
 }
 
 template <typename HashedObj>
-inline void MyProbingHash<HashedObj>::rehash() {
+void MyProbingHash<HashedObj>::rehash() {
+  std::cout << "rehash happened!" << std::endl;
   std::vector<HashEntry> oldLists = theLists;
   theLists.resize(nextPrime(oldLists.size()));
-  for (auto &c : theLists) c.info = EMPTY;
+  makeEmpty();
   currentSize = 0;  //将旧表的元素重新插入到新表中,故currentSize变为0
   for (auto &d : oldLists)
     if (d.info == ACTIVE) insert(d.data);
 }
 
 template <typename HashedObj>
-inline int MyProbingHash<HashedObj>::myhash(const HashedObj &t) const {
+int MyProbingHash<HashedObj>::myhash(const HashedObj &t) const {
   int hashVal = hash(t);
   hashVal %=
       theLists.size();  //由于有的哈希函数得到的哈希值过大导致溢出,可能出现负值.
