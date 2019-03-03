@@ -27,6 +27,7 @@
     <ClInclude Include="HashFunc.h" />
     <ClInclude Include="MyAVL.h" />
     <ClInclude Include="MyAVLTest.h" />
+    <ClInclude Include="MyBHTest.h" />
     <ClInclude Include="MyBinaryHeap.h" />
     <ClInclude Include="MyBinomialQueue.h" />
     <ClInclude Include="MyBSTTest.h" />

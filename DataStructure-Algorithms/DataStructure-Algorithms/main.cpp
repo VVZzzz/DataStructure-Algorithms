@@ -1,14 +1,12 @@
 #include <iostream>
-#include "MyVector.h"
 #include "MyVectorTest.h"
-#include "MyList.h"
 #include "MyListTest.h"
 #include "MyBSTTest.h"
-#include "MyAVL.h"
 #include "MyAVLTest.h"
 #include "MyHashTest.h"
+#include "MyBHTest.h"
 int main() {
-  hash_test();
+  binary_heap_test();
   system("pause");
   return 0;
 }

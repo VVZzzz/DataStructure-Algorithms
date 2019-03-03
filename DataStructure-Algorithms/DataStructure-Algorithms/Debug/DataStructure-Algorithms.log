@@ -1,6 +1,18 @@
 ﻿  main.cpp
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybsttest.h(117): warning C4018: “<”: 有符号/无符号不匹配
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\hashfunc.h(12): warning C4018: “<”: 有符号/无符号不匹配
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(18): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(16): note: 编译 类 模板 成员函数 "MyBinaryHeap<int>::MyBinaryHeap(const std::vector<int,std::allocator<_Ty>> &)" 时
+          with
+          [
+              _Ty=int
+          ]
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybhtest.h(14): note: 参见对正在编译的函数 模板 实例化“MyBinaryHeap<int>::MyBinaryHeap(const std::vector<int,std::allocator<_Ty>> &)”的引用
+          with
+          [
+              _Ty=int
+          ]
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybhtest.h(8): note: 参见对正在编译的 类 模板 实例化 "MyBinaryHeap<int>" 的引用
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myvector.h(128): warning C4018: “<”: 有符号/无符号不匹配
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myvector.h(127): note: 编译 类 模板 成员函数 "Object &MyVector<Object>::operator [](unsigned int)" 时
           with
@@ -13,12 +25,12 @@ e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\da
               Object=int
           ]
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myvectortest.h(10): note: 参见对正在编译的 类 模板 实例化 "MyVector<int>" 的引用
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(75): warning C4018: “<”: 有符号/无符号不匹配
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(74): note: 编译 类 模板 成员函数 "void MyProbingHash<int>::makeEmpty(void)" 时
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(76): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(75): note: 编译 类 模板 成员函数 "void MyProbingHash<int>::makeEmpty(void)" 时
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(21): note: 参见对正在编译的函数 模板 实例化“void MyProbingHash<int>::makeEmpty(void)”的引用
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashtest.h(40): note: 参见对正在编译的 类 模板 实例化 "MyProbingHash<int>" 的引用
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(86): warning C4018: “>”: 有符号/无符号不匹配
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(81): note: 编译 类 模板 成员函数 "bool MyProbingHash<int>::insert(const HashedObj &)" 时
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(87): warning C4018: “>”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(82): note: 编译 类 模板 成员函数 "bool MyProbingHash<int>::insert(const HashedObj &)" 时
           with
           [
               HashedObj=int
@@ -28,11 +40,11 @@ e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\da
           [
               HashedObj=int
           ]
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(114): warning C4018: “<”: 有符号/无符号不匹配
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(106): note: 编译 类 模板 成员函数 "void MyProbingHash<int>::printInfo(void) const" 时
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(115): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(107): note: 编译 类 模板 成员函数 "void MyProbingHash<int>::printInfo(void) const" 时
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashtest.h(46): note: 参见对正在编译的函数 模板 实例化“void MyProbingHash<int>::printInfo(void) const”的引用
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(154): warning C4018: “>=”: 有符号/无符号不匹配
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(144): note: 编译 类 模板 成员函数 "int MyProbingHash<int>::findPos(const HashedObj &) const" 时
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(163): warning C4018: “>=”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(148): note: 编译 类 模板 成员函数 "int MyProbingHash<int>::findPos(const HashedObj &) const" 时
           with
           [
               HashedObj=int

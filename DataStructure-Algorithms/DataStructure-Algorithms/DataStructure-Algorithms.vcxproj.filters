@@ -105,6 +105,9 @@
     <ClInclude Include="MyHashTest.h">
       <Filter>头文件\Test</Filter>
     </ClInclude>
+    <ClInclude Include="MyBHTest.h">
+      <Filter>头文件\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
