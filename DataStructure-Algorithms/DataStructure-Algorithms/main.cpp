@@ -5,8 +5,9 @@
 #include "MyAVLTest.h"
 #include "MyHashTest.h"
 #include "MyBHTest.h"
+#include "MyLeftHeapTest.h"
 int main() {
-  binary_heap_test();
+  leftist_heap_test();
   system("pause");
   return 0;
 }

@@ -62,3 +62,16 @@ Learn DataStructrue-Algorithms.
    - makeEmpty()
    - rehash()
    - contains(x)
+6. 二叉堆
+   - 含参(vector)构造函数
+   - insert
+   - deleteMin
+   - remove
+   - increaseKey
+   - decreaseKey
+7. 左式堆
+   - 构造,拷贝,析构
+   - insert() merge()
+   - findMin() deleteMin()
+   - buildHeap(vector<T>)建堆策略
+   - lazyDeleteMin懒惰策略

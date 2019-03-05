@@ -1,6 +1,8 @@
 ﻿  main.cpp
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybsttest.h(117): warning C4018: “<”: 有符号/无符号不匹配
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\hashfunc.h(12): warning C4018: “<”: 有符号/无符号不匹配
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftheaptest.h(31): warning C4018: “<”: 有符号/无符号不匹配
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftheaptest.h(46): warning C4018: “<”: 有符号/无符号不匹配
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(18): warning C4018: “<”: 有符号/无符号不匹配
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(16): note: 编译 类 模板 成员函数 "MyBinaryHeap<int>::MyBinaryHeap(const std::vector<int,std::allocator<_Ty>> &)" 时
           with
@@ -43,6 +45,18 @@ e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\da
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(115): warning C4018: “<”: 有符号/无符号不匹配
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(107): note: 编译 类 模板 成员函数 "void MyProbingHash<int>::printInfo(void) const" 时
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashtest.h(46): note: 参见对正在编译的函数 模板 实例化“void MyProbingHash<int>::printInfo(void) const”的引用
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftisheap.h(238): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftisheap.h(235): note: 编译 类 模板 成员函数 "void MyLeftistHeap<int>::buildHeap(const std::vector<int,std::allocator<_Ty>> &)" 时
+          with
+          [
+              _Ty=int
+          ]
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftheaptest.h(40): note: 参见对正在编译的函数 模板 实例化“void MyLeftistHeap<int>::buildHeap(const std::vector<int,std::allocator<_Ty>> &)”的引用
+          with
+          [
+              _Ty=int
+          ]
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftheaptest.h(8): note: 参见对正在编译的 类 模板 实例化 "MyLeftistHeap<int>" 的引用
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(163): warning C4018: “>=”: 有符号/无符号不匹配
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(148): note: 编译 类 模板 成员函数 "int MyProbingHash<int>::findPos(const HashedObj &) const" 时
           with

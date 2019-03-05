@@ -32,12 +32,13 @@ class MyLeftistHeap {
   const MyLeftistHeap &operator=(const MyLeftistHeap &rhs);
 
   //懒惰删除方案,设立标志,若根节点被设为isDeleted.则lazyFindMin()和lazyDeleteMin()按以下进行。
-  void lazyDelete(LeftistNode *t) { t->isDeleted = true; }
   const T &lazyFindMin();
   void lazyDeleteMin();
 
   //练习6.25 更为合适的buildHeap(),斜堆同样也可以这样操作进行buildHeap().
   void buildHeap(const std::vector<T> &tvec);
+
+  void printInfo() const;
 
  private:
   struct LeftistNode {
@@ -47,13 +48,13 @@ class MyLeftistHeap {
     int npl;  //零路径长
     // lazy delete标志
     bool isDeleted;
-    LeftistNode(const T &ele, LeftistNode *l = nullptr,
+    LeftistNode(const T &ele = T(), LeftistNode *l = nullptr,
                 LeftistNode *r = nullptr, int n = 0, bool f = false)
         : data(ele), left(l), right(r), npl(n), isDeleted(f) {}
     void reset() {
       left = nullptr;
       right = nullptr;
-      npl = nullptr;
+      npl = 0;
       isDeleted = false;
     }
   };
@@ -71,7 +72,9 @@ class MyLeftistHeap {
 
   // h1为根较小的堆
   LeftistNode *merge1(LeftistNode *h1, LeftistNode *h2) {
-    if (h1->left == nullptr)
+    if (h1->left ==
+        nullptr)  //此处只需要判断h1->left是否为nullptr
+                  //因为左式堆不存在左子树为nullptr,右子树不为nullptr的情况.
       h1->left = h2;  // h1只有一个跟节点,则h2直接为h1的左子树
     else {
       h1->right = merge(h1->right, h2);
@@ -84,7 +87,7 @@ class MyLeftistHeap {
   void swapChildren(LeftistNode *t) {
     LeftistNode *temp = t->left;
     t->left = t->right;
-    t->right = t->left;
+    t->right = temp;
   }
 
   void reclaimMemory(LeftistNode *t);
@@ -109,10 +112,11 @@ class MyLeftistHeap {
     return newroot;
   }
 
-  void makeEmpty(LeftistNode *t);
+  void makeEmpty(LeftistNode *&t);
   void remove(T &minItem, LeftistNode *t) {
     // TODO
   }
+  void lazyDelete(LeftistNode *t) { t->isDeleted = true; }
 };
 
 template <typename T>
@@ -124,7 +128,7 @@ void MyLeftistHeap<T>::merge(MyLeftistHeap<T> &rhs) {
 
 template <typename T>
 void MyLeftistHeap<T>::insert(const T &x) {
-  root = merge(new LeftistNode<T>(x), root);
+  root = merge(new LeftistNode(x), root);
 }
 
 template <typename T>
@@ -166,11 +170,12 @@ void MyLeftistHeap<T>::makeEmpty() {
 }
 
 template <typename T>
-void MyLeftistHeap<T>::makeEmpty(LeftistNode *t) {
+void MyLeftistHeap<T>::makeEmpty(LeftistNode *&t) {
   if (t == nullptr) return;
   if (t->left == nullptr && t->right == nullptr) {
     delete t;
     t = nullptr;
+    return;
   }
   makeEmpty(t->right);
   makeEmpty(t->left);
@@ -206,13 +211,13 @@ void MyLeftistHeap<T>::lazyDeleteMin() {
   //从nodeVec中进行两两合并,将每次合并的结果
   auto i = nodeVec.begin(), j = i;
   for (; i != nodeVec.end(); i++) {
-    if (*i->isDeleted) {
+    if ((*i)->isDeleted) {
       delete *i;
       continue;
     } else {
-      if ((i != j) && (!(*j->isDeleted))) {
-        *i->reset();
-        *j->reset();
+      if ((i != j) && (!((*j)->isDeleted))) {
+        (*i)->reset();
+        (*j)->reset();
         nodeVec.push_back(merge(*i, *j));
         j = i + 1;
         continue;
@@ -225,8 +230,10 @@ void MyLeftistHeap<T>::lazyDeleteMin() {
   //故其节点实体仍在,除非我们使用makeEmpty.
 }
 
+//此建堆方式:两两合并,比insert效率高.
 template <typename T>
 void MyLeftistHeap<T>::buildHeap(const std::vector<T> &tvec) {
+  makeEmpty();
   std::queue<LeftistNode *> nodeQueue;
   for (int i = 0; i < tvec.size(); i += 2) {
     if (i == (tvec.size() - 1)) {
@@ -247,4 +254,34 @@ void MyLeftistHeap<T>::buildHeap(const std::vector<T> &tvec) {
     }
     nodeQueue.push(root);
   }
+}
+
+template <typename T>
+void MyLeftistHeap<T>::printInfo() const {
+  if (root == nullptr) {
+    std::cout << "This tree is null." << std::endl;
+    return;
+  }
+  LeftistNode *sep_node = new LeftistNode();
+  std::queue<LeftistNode *> node_queue;
+  LeftistNode *opnode;
+  node_queue.push(root);
+  node_queue.push(sep_node);
+  while (!node_queue.empty()) {
+    opnode = node_queue.front();
+    if (opnode == nullptr)
+      std::cout << "nullptr ";
+    else if (opnode == sep_node) {
+      if (node_queue.size() == 1) break;
+      std::cout << std::endl;
+      node_queue.push(sep_node);
+    } else {
+      std::cout << opnode->data << " ";
+      node_queue.push(opnode->left);
+      node_queue.push(opnode->right);
+    }
+    //对opnode进行操作
+    node_queue.pop();
+  }
+  delete sep_node;
 }
