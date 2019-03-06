@@ -1,13 +1,14 @@
 #include <iostream>
-#include "MyVectorTest.h"
-#include "MyListTest.h"
-#include "MyBSTTest.h"
 #include "MyAVLTest.h"
-#include "MyHashTest.h"
 #include "MyBHTest.h"
+#include "MyBQTest.h"
+#include "MyBSTTest.h"
+#include "MyHashTest.h"
 #include "MyLeftHeapTest.h"
+#include "MyListTest.h"
+#include "MyVectorTest.h"
 int main() {
-  leftist_heap_test();
+  binomial_queue_test();
   system("pause");
   return 0;
 }

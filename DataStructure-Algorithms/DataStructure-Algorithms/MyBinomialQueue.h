@@ -26,6 +26,8 @@ class MyBinomialQueue {
 
   const MyBinomialQueue &operator=(const MyBinomialQueue &rhs);
 
+  void printInfo() const;
+
  private:
   //二项队列中二项树的节点
   struct BinomialNode {
@@ -41,6 +43,7 @@ class MyBinomialQueue {
   std::vector<BinomialNode *> theTrees;  // An array of tree roots;
 
   int findMinIndex() const;
+
   // capacity()按照书的意思推测为该vector能放的最多的节点数
   int capacity() const {
     int num = 1;
@@ -56,15 +59,19 @@ class MyBinomialQueue {
     t1->left = t2;
     return t1;
   }
+
   void makeEmpty(BinomialNode *&t);
+
   BinomialNode *clone(BinomialNode *t) const {
     if (t == nullptr) return nullptr;
     return new BinomialNode(t->data, clone(t->left), clone(t->nextSibling));
   }
+
+  void printCurrTree(BinomialNode *t) const;
 };
 
 template <typename T>
-inline void MyBinomialQueue<T>::insert(const T &x) {
+void MyBinomialQueue<T>::insert(const T &x) {
   merge(MyBinomialQueue(x));
 }
 
@@ -146,10 +153,10 @@ void MyBinomialQueue<T>::merge(MyBinomialQueue &rhs) {
   BinomialNode *carry = nullptr;
   for (int i = 0, j = 1; j <= currentSize; i++, j *= 2) {
     BinomialNode *t1 = theTrees[i];
-    BinomialNode *t2 = i < rhs.theTrees.size() ? rhs.theTrees[i] : nullptr;
-    int whichcase = t1 == nullptr ? 0 : 1;
-    whichcase += t2 == nullptr ? 0 : 2;
-    whichcase += carry == nullptr ? 0 : 4;
+    BinomialNode *t2 = (i < rhs.theTrees.size() ? rhs.theTrees[i] : nullptr);
+    int whichcase = (t1 == nullptr ? 0 : 1);
+    whichcase += (t2 == nullptr ? 0 : 2);
+    whichcase += (carry == nullptr ? 0 : 4);
     switch (whichcase) {
       case 0:  // all is nullptr
         break;
@@ -162,6 +169,7 @@ void MyBinomialQueue<T>::merge(MyBinomialQueue &rhs) {
       case 3:  // only this and rhs
         carry = combineTrees(t1, t2);
         theTrees[i] = rhs.theTrees[i] = nullptr;
+        break;
       case 4:  // only carry
         theTrees[i] = carry;
         carry = nullptr;
@@ -183,6 +191,7 @@ void MyBinomialQueue<T>::merge(MyBinomialQueue &rhs) {
         break;
     }
   }
+  //此处不能用makeEmpty,否则会delete掉rhs的结点.
   for (int k = 0; k < rhs.theTrees.size(); k++) rhs.theTrees[k] = nullptr;
   rhs.currentSize = 0;
 }
@@ -202,6 +211,15 @@ const MyBinomialQueue<T> &MyBinomialQueue<T>::operator=(
 }
 
 template <typename T>
+void MyBinomialQueue<T>::printInfo() const {
+  for (int i = 0; i < theTrees.size(); i++) {
+    std::cout << "高度为 " << i << ": " << std::endl;
+    printCurrTree(theTrees[i]);
+  }
+  std::cout << std::endl;
+}
+
+template <typename T>
 int MyBinomialQueue<T>::findMinIndex() const {
   int i, minIndex;
   for (i = 0; theTrees[i] == nullptr; i++)
@@ -214,18 +232,58 @@ int MyBinomialQueue<T>::findMinIndex() const {
 }
 
 template <typename T>
-inline void MyBinomialQueue<T>::makeEmpty(BinomialNode *&t) {
+void MyBinomialQueue<T>::makeEmpty(BinomialNode *&t) {
   if (t == nullptr) return;
   if (t->left == nullptr && t->nextSibling == nullptr) {
     delete t;
-    t == nullptr;
+    t = nullptr;
+    return;
   }
   makeEmpty(t->left);
   makeEmpty(t->nextSibling);
 }
 
 template <typename T>
-inline MyBinomialQueue<T>::MyBinomialQueue(const MyBinomialQueue &rhs) {
+void MyBinomialQueue<T>::printCurrTree(BinomialNode *t) const {
+  if (t == nullptr) {
+    std::cout << "curr tree is null." << std::endl;
+    return;
+  }
+  std::vector<BinomialNode *> node_vec{t};
+  auto sibling = t->nextSibling;
+  while (sibling != nullptr) {
+    node_vec.push_back(sibling);
+    sibling = sibling->nextSibling;
+  }
+  while (!node_vec.empty()) {
+    std::vector<BinomialNode *> next_level_vec;
+    for (auto i : node_vec) {
+      std::cout << i->data << " ";
+      if (i->left != nullptr) {
+        next_level_vec.push_back(i->left);
+        auto temp = i->left->nextSibling;
+        while (temp != nullptr) {
+          next_level_vec.push_back(temp);
+          temp = temp->nextSibling;
+        }
+      }
+    }
+    std::cout << std::endl;
+    /*
+
+    auto child = node_vec.front()->left;
+    node_vec.clear();
+    while (child != nullptr) {
+      node_vec.push_back(child);
+      child = child->nextSibling;
+    }
+        */
+    node_vec = next_level_vec;
+  }
+}
+
+template <typename T>
+MyBinomialQueue<T>::MyBinomialQueue(const MyBinomialQueue &rhs) {
   currentSize = rhs.currentSize;
   theTrees.reserve(currentSize + 10);
   for (auto &p : rhs.theTrees) {

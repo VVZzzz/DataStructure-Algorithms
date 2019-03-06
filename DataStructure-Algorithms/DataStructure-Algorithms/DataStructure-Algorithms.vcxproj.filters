@@ -111,6 +111,9 @@
     <ClInclude Include="MyLeftHeapTest.h">
       <Filter>头文件\Test</Filter>
     </ClInclude>
+    <ClInclude Include="MyBQTest.h">
+      <Filter>头文件\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

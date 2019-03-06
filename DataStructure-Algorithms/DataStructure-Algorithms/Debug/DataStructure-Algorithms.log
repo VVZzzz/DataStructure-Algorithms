@@ -2,19 +2,6 @@
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybsttest.h(117): warning C4018: “<”: 有符号/无符号不匹配
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\hashfunc.h(12): warning C4018: “<”: 有符号/无符号不匹配
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftheaptest.h(31): warning C4018: “<”: 有符号/无符号不匹配
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftheaptest.h(46): warning C4018: “<”: 有符号/无符号不匹配
-e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(18): warning C4018: “<”: 有符号/无符号不匹配
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(16): note: 编译 类 模板 成员函数 "MyBinaryHeap<int>::MyBinaryHeap(const std::vector<int,std::allocator<_Ty>> &)" 时
-          with
-          [
-              _Ty=int
-          ]
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybhtest.h(14): note: 参见对正在编译的函数 模板 实例化“MyBinaryHeap<int>::MyBinaryHeap(const std::vector<int,std::allocator<_Ty>> &)”的引用
-          with
-          [
-              _Ty=int
-          ]
-  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybhtest.h(8): note: 参见对正在编译的 类 模板 实例化 "MyBinaryHeap<int>" 的引用
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myvector.h(128): warning C4018: “<”: 有符号/无符号不匹配
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myvector.h(127): note: 编译 类 模板 成员函数 "Object &MyVector<Object>::operator [](unsigned int)" 时
           with
@@ -27,6 +14,22 @@ e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\da
               Object=int
           ]
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myvectortest.h(10): note: 参见对正在编译的 类 模板 实例化 "MyVector<int>" 的引用
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(18): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinaryheap.h(16): note: 编译 类 模板 成员函数 "MyBinaryHeap<int>::MyBinaryHeap(const std::vector<int,std::allocator<_Ty>> &)" 时
+          with
+          [
+              _Ty=int
+          ]
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybhtest.h(14): note: 参见对正在编译的函数 模板 实例化“MyBinaryHeap<int>::MyBinaryHeap(const std::vector<int,std::allocator<_Ty>> &)”的引用
+          with
+          [
+              _Ty=int
+          ]
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybhtest.h(8): note: 参见对正在编译的 类 模板 实例化 "MyBinaryHeap<int>" 的引用
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(215): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(214): note: 编译 类 模板 成员函数 "void MyBinomialQueue<int>::printInfo(void) const" 时
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybqtest.h(9): note: 参见对正在编译的函数 模板 实例化“void MyBinomialQueue<int>::printInfo(void) const”的引用
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybqtest.h(8): note: 参见对正在编译的 类 模板 实例化 "MyBinomialQueue<int>" 的引用
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(76): warning C4018: “<”: 有符号/无符号不匹配
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(75): note: 编译 类 模板 成员函数 "void MyProbingHash<int>::makeEmpty(void)" 时
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(21): note: 参见对正在编译的函数 模板 实例化“void MyProbingHash<int>::makeEmpty(void)”的引用
@@ -57,6 +60,20 @@ e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\da
               _Ty=int
           ]
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myleftheaptest.h(8): note: 参见对正在编译的 类 模板 实例化 "MyLeftistHeap<int>" 的引用
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(156): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(142): note: 编译 类 模板 成员函数 "void MyBinomialQueue<int>::merge(MyBinomialQueue<int> &)" 时
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(75): note: 参见对正在编译的函数 模板 实例化“void MyBinomialQueue<int>::merge(MyBinomialQueue<int> &)”的引用
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(295): note: 编译 类 模板 成员函数 "MyBinomialQueue<int>::MyBinomialQueue(const T &)" 时
+          with
+          [
+              T=int
+          ]
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybqtest.h(8): note: 参见对正在编译的函数 模板 实例化“MyBinomialQueue<int>::MyBinomialQueue(const T &)”的引用
+          with
+          [
+              T=int
+          ]
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(195): warning C4018: “<”: 有符号/无符号不匹配
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(163): warning C4018: “>=”: 有符号/无符号不匹配
   e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\myhashprobing.h(148): note: 编译 类 模板 成员函数 "int MyProbingHash<int>::findPos(const HashedObj &) const" 时
           with
@@ -78,6 +95,9 @@ e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\da
           [
               HashedObj=int
           ]
+e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(50): warning C4018: “<”: 有符号/无符号不匹配
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(48): note: 编译 类 模板 成员函数 "int MyBinomialQueue<int>::capacity(void) const" 时
+  e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mybinomialqueue.h(145): note: 参见对正在编译的函数 模板 实例化“int MyBinomialQueue<int>::capacity(void) const”的引用
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mytree.h(214): warning C4172: 返回局部变量或临时变量的地址
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mytree.h(202): warning C4172: 返回局部变量或临时变量的地址
 e:\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\datastructure-algorithms\mytree.h(577): warning C4715: “BinarySearchTree<int>::isBST_4”: 不是所有的控件路径都返回值

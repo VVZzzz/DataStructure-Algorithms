@@ -30,6 +30,7 @@
     <ClInclude Include="MyBHTest.h" />
     <ClInclude Include="MyBinaryHeap.h" />
     <ClInclude Include="MyBinomialQueue.h" />
+    <ClInclude Include="MyBQTest.h" />
     <ClInclude Include="MyBSTTest.h" />
     <ClInclude Include="MyDeque.h" />
     <ClInclude Include="MyDisjSets.h" />
