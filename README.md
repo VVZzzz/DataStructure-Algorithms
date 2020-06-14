@@ -13,7 +13,7 @@ Learn DataStructrue-Algorithms.
 - [第八章](https://github.com/VVZzzz/DataStructure-Algorithms/blob/master/ch4_test.md)
 - [第九章](https://github.com/VVZzzz/DataStructure-Algorithms/blob/master/ch4_test.md)
 
-## 本项目的数据结构类实现已转至[MyDSA](https://github.com/VVZzzz/MyDsa/tree/master/dsa),请查看
+## 本项目的数据结构类实现已转至[MyDSA](https://github.com/VVZzzz/MyDsa),请查看
 ## 已实现数据结构类
 1. 数组MyVector
    - 构造,拷贝,析构
